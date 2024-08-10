@@ -1,19 +1,19 @@
 import React from 'react';
 
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import { useColorScheme } from 'react-native';
+
 import HomeScreen from '../screens/home';
 import BasketScreen from '../screens/basket';
+import AccountScreen from '../screens/account';
+import { MainAppNavigatorParamList } from '../app.interface';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator<MainAppNavigatorParamList>();
 
 const MainAppNavigator = () => {
-  const colorScheme = useColorScheme();
-
   return (
     <Tab.Navigator
       sceneAnimationEnabled
-      initialRouteName="WorkoutStack"
+      initialRouteName="Shop"
       backBehavior="initialRoute">
       <Tab.Screen
         name="Shop"
@@ -31,6 +31,14 @@ const MainAppNavigator = () => {
           tabBarIcon: 'basket',
         }}
         component={BasketScreen}
+      />
+      <Tab.Screen
+        name="Account"
+        options={{
+          tabBarLabel: 'Account',
+          tabBarIcon: 'account-circle',
+        }}
+        component={AccountScreen}
       />
     </Tab.Navigator>
   );

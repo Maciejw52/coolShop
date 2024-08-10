@@ -1,10 +1,10 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-export const BasketScreen = () => {
+export const AccountScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>BasketScreen</Text>
+      <Text>AccountScreen</Text>
     </SafeAreaView>
   );
 };
