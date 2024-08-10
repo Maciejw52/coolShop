@@ -10,3 +10,22 @@ export type AccountStackParamList = {
   Cards: undefined;
   AppSettings: undefined;
 };
+
+// Slice Interfaces and Types
+export interface ContactInfo {
+  email?: string;
+  phoneNumber?: string;
+}
+
+export interface Address {
+  street?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+}
+
+export interface AccountDataState {
+  fullName?: string;
+  contactInfo?: ContactInfo;
+  address?: Address;
+}
