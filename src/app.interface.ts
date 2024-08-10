@@ -8,4 +8,5 @@ export type AccountStackParamList = {
   Account: { initialRoute: boolean };
   PersonalDetails: undefined;
   Cards: undefined;
+  AppSettings: undefined;
 };

@@ -1,28 +1,46 @@
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Alert, SafeAreaView, StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
-import accountOptions from './account-options.json';
-import { AppTheme } from '@/theme';
-import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { AccountStackParamList } from '@/app.interface';
+import { LinkPanel } from '@/components/link-panel/link-panel';
+import { useAppTheme } from '@/hooks';
+import { AppTheme } from '@/theme';
+import { StackScreenProps } from '@react-navigation/stack';
+import { AccountOption } from './types';
+import { accountOptionsData } from './account-options';
 
-type AccountScreenProps = NativeStackScreenProps<
-  AccountStackParamList,
-  'Account'
->;
+type AccountScreenProps = StackScreenProps<AccountStackParamList, 'Account'>;
 
 export const AccountScreen = ({ navigation }: AccountScreenProps) => {
+  const theme = useAppTheme();
+  const styles = makeStyles(theme);
+
+  const handleCTAction = useCallback(
+    (option: AccountOption) => {
+      const { type, destination } = option.action;
+      if (type === 'navigate') {
+        try {
+          navigation.navigate(destination as any);
+        } catch {
+          Alert.alert('Could Not navigate to this');
+        }
+      } else {
+        // perform state change to ask user that they definitely want to delete the app data
+      }
+    },
+    [navigation],
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      {accountOptions.accountActions.map((optionSection, index) => (
-        <List.Section key={index}>
+      {accountOptionsData.map((optionSection, index) => (
+        <List.Section key={index} style={styles.section}>
           {optionSection.map(option => (
-            <List.Item
+            <LinkPanel
               key={option.title}
               title={option.title}
-              left={props => <List.Icon {...props} icon={option.icon} />}
-              onPress={() => navigation.navigate(option.screen)}
-              style={styles.listItem}
+              icon={option.icon}
+              onPress={() => handleCTAction(option)}
             />
           ))}
         </List.Section>
@@ -31,44 +49,16 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
   );
 };
 
-const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
+const makeStyles = ({ colors, spacing }: AppTheme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      paddingHorizontal: spacing.md,
     },
-    icon: {
-      marginBottom: spacing.md,
-    },
-    title: {
-      fontSize: fontSize.lg,
-      fontWeight: 'bold',
-      color: colors.text,
-      marginBottom: spacing.md,
-    },
-    subtitle: {
-      fontSize: fontSize.md,
-      color: colors.text,
-      textAlign: 'center',
+    section: {
+      borderWidth: 1,
+      borderRadius: spacing.sm,
+      borderColor: colors.background,
+      gap: spacing.xxs,
+      overflow: 'hidden',
     },
   });
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
-  listItem: {
-    borderRadius: 8,
-    marginVertical: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-});
-
-// Personal Details CTA to new screen for inputting personal details
-
-// Card Details CTA to a new screen full of
-
-// Settings to configure if the theme should follow system or always light or always dark
