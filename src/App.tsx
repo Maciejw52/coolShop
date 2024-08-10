@@ -3,19 +3,34 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
-import MainAppNavigator from './navigation/main-navigator';
+import MainAppNavigator from '@/navigation/main-navigator';
+import { CombinedDarkTheme, CombinedLightTheme } from '@/theme';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  let theme = isDarkMode ? CombinedDarkTheme : CombinedLightTheme;
 
-  const backgroundStyle = isDarkMode ? '#000145' : '#0099c3';
+  const barStyle = isDarkMode ? 'light-content' : 'dark-content';
+
+  const NavigationTheme = {
+    ...theme,
+    colors: {
+      ...theme.colors,
+      primary: theme.colors.primary,
+      background: theme.colors.background,
+      card: theme.colors.backdrop,
+      text: theme.colors.onPrimary,
+      border: theme.colors.surface,
+      notification: theme.colors.primary,
+    },
+  };
 
   return (
-    <PaperProvider>
-      <NavigationContainer>
+    <PaperProvider theme={theme}>
+      <NavigationContainer theme={NavigationTheme}>
         <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle}
+          barStyle={barStyle}
+          backgroundColor={theme.colors.background}
         />
         <MainAppNavigator />
       </NavigationContainer>
