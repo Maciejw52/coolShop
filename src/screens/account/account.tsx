@@ -12,5 +12,6 @@ export const AccountScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgb(21, 21, 21)',
   },
 });

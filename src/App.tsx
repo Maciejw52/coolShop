@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
-import MainAppNavigator from './navigation/main-navigator';
+import MainAppNavigator from '@/navigation/main-navigator';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';

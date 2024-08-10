@@ -1,17 +1,23 @@
 import React from 'react';
 
+import BasketScreen from '@/screens/basket';
+import HomeScreen from '@/screens/home';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-
-import HomeScreen from '../screens/home';
-import BasketScreen from '../screens/basket';
-import AccountScreen from '../screens/account';
-import { MainAppNavigatorParamList } from '../app.interface';
+import { MainAppNavigatorParamList } from '@/app.interface';
+import AccountStackScreen from './account-navigator';
+import { useColorScheme } from 'react-native';
+import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 
 const Tab = createMaterialBottomTabNavigator<MainAppNavigatorParamList>();
 
 const MainAppNavigator = () => {
+  const colorScheme = useColorScheme();
+
+  const theme = colorScheme === 'light' ? MD3LightTheme : MD3DarkTheme;
+
   return (
     <Tab.Navigator
+      theme={theme}
       sceneAnimationEnabled
       initialRouteName="Shop"
       backBehavior="initialRoute">
@@ -33,12 +39,12 @@ const MainAppNavigator = () => {
         component={BasketScreen}
       />
       <Tab.Screen
-        name="Account"
+        name="AccountStack"
         options={{
           tabBarLabel: 'Account',
           tabBarIcon: 'account-circle',
         }}
-        component={AccountScreen}
+        component={AccountStackScreen}
       />
     </Tab.Navigator>
   );

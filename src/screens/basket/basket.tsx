@@ -1,16 +1,11 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import ScreenInProgress from '@/components/in-progress';
 
 export const BasketScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>BasketScreen</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScreenInProgress />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

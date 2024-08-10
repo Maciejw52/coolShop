@@ -1,12 +1,11 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import React from 'react';
+import ScreenInProgress from '@/components/in-progress';
 
 export const HomeScreen = () => {
   return (
-    <SafeAreaView>
-      <Text>HomeScreen</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScreenInProgress />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({});
