@@ -27,21 +27,21 @@ const MainAppNavigator = () => {
       initialRouteName="Shop"
       backBehavior="initialRoute">
       <Tab.Screen
-        name="Shop"
-        options={{
-          tabBarLabel: 'Shop',
-          tabBarIcon: 'home',
-        }}
-        component={HomeScreen}
-        initialParams={{ initialRoute: true }}
-      />
-      <Tab.Screen
         name="Basket"
         options={{
           tabBarLabel: 'Basket',
           tabBarIcon: 'basket',
         }}
         component={BasketScreen}
+      />
+      <Tab.Screen
+        name="Shop"
+        options={{
+          tabBarLabel: 'Shop',
+          tabBarIcon: 'shopping-outline',
+        }}
+        component={HomeScreen}
+        initialParams={{ initialRoute: true }}
       />
       <Tab.Screen
         name="AccountStack"

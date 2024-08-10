@@ -17,7 +17,7 @@ const LinkPanelComponent = ({ title, icon, onPress }: LinkPanelProps) => {
   return (
     <List.Item
       key={title}
-      title={<Text>{title}</Text>}
+      title={<Text style={styles.title}>{title}</Text>}
       testID={`link-panel-${title}`}
       left={props => <List.Icon {...props} icon={icon} />}
       right={props => <List.Icon {...props} icon="chevron-right" />}
@@ -29,8 +29,11 @@ const LinkPanelComponent = ({ title, icon, onPress }: LinkPanelProps) => {
 
 const makeStyles = ({ colors }: AppTheme) =>
   StyleSheet.create({
+    title: {
+      color: colors.inverseSurface,
+    },
     listItem: {
-      backgroundColor: colors.secondaryContainer,
+      backgroundColor: colors.inverseOnSurface,
     },
   });
 

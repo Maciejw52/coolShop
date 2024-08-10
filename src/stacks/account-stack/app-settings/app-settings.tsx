@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { useRoute } from '@react-navigation/native';
 
-export const CardsScreen = () => {
+export const AppSettings = () => {
   return (
     <View>
-      <Text>CardsScreen</Text>
+      <Text>AppSettings</Text>
     </View>
   );
 };

@@ -26,6 +26,7 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
         }
       } else {
         // perform state change to ask user that they definitely want to delete the app data
+        console.log('Inform the user of something');
       }
     },
     [navigation],
