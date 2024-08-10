@@ -7,12 +7,23 @@ import { List, Text } from 'react-native-paper';
 interface LinkPanelProps {
   title: string;
   icon: string;
+  status?: 'error' | 'default';
   onPress: () => void;
 }
 
-const LinkPanelComponent = ({ title, icon, onPress }: LinkPanelProps) => {
+const LinkPanelComponent = ({
+  title,
+  icon,
+  onPress,
+  status = 'default',
+}: LinkPanelProps) => {
   const theme = useAppTheme();
   const styles = makeStyles(theme);
+
+  const listItemStyles = [
+    styles.listItem,
+    status === 'error' && styles.errorListItem,
+  ];
 
   return (
     <List.Item
@@ -22,7 +33,7 @@ const LinkPanelComponent = ({ title, icon, onPress }: LinkPanelProps) => {
       left={props => <List.Icon {...props} icon={icon} />}
       right={props => <List.Icon {...props} icon="chevron-right" />}
       onPress={() => onPress()}
-      style={styles.listItem}
+      style={listItemStyles}
     />
   );
 };
@@ -34,6 +45,9 @@ const makeStyles = ({ colors }: AppTheme) =>
     },
     listItem: {
       backgroundColor: colors.inverseOnSurface,
+    },
+    errorListItem: {
+      backgroundColor: colors.errorContainer,
     },
   });
 

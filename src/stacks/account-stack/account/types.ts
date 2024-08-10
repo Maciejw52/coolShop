@@ -1,10 +1,16 @@
-import { AccountStackParamList, AccountStackScreens } from '@/app.interface';
-
 export type AccountOption = {
   title: string;
   icon: string;
-  action: {
-    type: 'navigate' | 'state-change';
-    destination: 'Account' | 'PersonalDetails' | 'Cards' | 'AppSettings';
-  };
+  status?: 'error' | 'default';
+  action: AccountActionOption;
 };
+
+export type AccountActionOption =
+  | {
+      type: 'navigate';
+      destination: 'Account' | 'PersonalDetails' | 'Cards' | 'AppSettings';
+    }
+  | {
+      type: 'state-change';
+      destination: string;
+    };

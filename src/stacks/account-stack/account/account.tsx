@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Alert, SafeAreaView, StyleSheet } from 'react-native';
-import { List } from 'react-native-paper';
+import { Alert, SafeAreaView, StyleSheet, View } from 'react-native';
+import { List, Text } from 'react-native-paper';
 import { AccountStackParamList } from '@/app.interface';
 import { LinkPanel } from '@/components/link-panel/link-panel';
 import { useAppTheme } from '@/hooks';
@@ -34,18 +34,25 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {accountOptionsData.map((optionSection, index) => (
-        <List.Section key={index} style={styles.section}>
-          {optionSection.map(option => (
-            <LinkPanel
-              key={option.title}
-              title={option.title}
-              icon={option.icon}
-              onPress={() => handleCTAction(option)}
-            />
-          ))}
-        </List.Section>
-      ))}
+      <View>
+        <Text>Account Options</Text>
+        {accountOptionsData.map((optionSection, index) => (
+          <List.Section key={index} style={styles.section}>
+            {optionSection.map(option => (
+              <LinkPanel
+                key={option.title}
+                title={option.title}
+                icon={option.icon}
+                status={option?.status}
+                onPress={() => handleCTAction(option)}
+              />
+            ))}
+          </List.Section>
+        ))}
+      </View>
+      <View>
+        <Text style={styles.appVersion}>v0.0.1</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -53,7 +60,9 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
 const makeStyles = ({ colors, spacing }: AppTheme) =>
   StyleSheet.create({
     container: {
+      flex: 1,
       paddingHorizontal: spacing.md,
+      justifyContent: 'space-between',
     },
     section: {
       borderWidth: 1,
@@ -61,5 +70,8 @@ const makeStyles = ({ colors, spacing }: AppTheme) =>
       borderColor: colors.background,
       gap: spacing.xxs,
       overflow: 'hidden',
+    },
+    appVersion: {
+      textAlign: 'center',
     },
   });

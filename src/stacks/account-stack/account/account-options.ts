@@ -3,7 +3,7 @@ import { AccountOption } from './types';
 export const accountOptionsData: AccountOption[][] = [
   [
     {
-      title: 'Personal details',
+      title: 'Manage personal details',
       icon: 'account',
       action: {
         type: 'navigate',
@@ -28,11 +28,21 @@ export const accountOptionsData: AccountOption[][] = [
         destination: 'AppSettings',
       },
     },
+    {
+      title: 'Privacy Policy',
+      icon: 'file-document-outline',
+      action: {
+        type: 'navigate',
+        destination: 'AppSettings',
+      },
+    },
   ],
+
   [
     {
       title: 'Delete app data',
       icon: 'delete',
+      status: 'error',
       action: {
         type: 'state-change',
         destination: 'delete-data',
