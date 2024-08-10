@@ -1,0 +1,25 @@
+{
+  "accountActions": [
+    [
+      {
+        "title": "Personal Details",
+        "icon": "account",
+        "screen": "PersonalDetails"
+      },
+      {
+        "title": "Card Details",
+        "icon": "credit-card",
+        "screen": "Cards"
+      }
+    ],
+    [
+      {
+        "title": "Delete App Data",
+        "icon": "delete",
+        "style": "error",
+        "action": "deleteAppDetails",
+        "screen": null
+      }
+    ]
+  ]
+}

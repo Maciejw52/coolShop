@@ -1,23 +1,28 @@
 import React from 'react';
 
-import BasketScreen from '@/screens/basket';
-import HomeScreen from '@/screens/home';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { MainAppNavigatorParamList } from '@/app.interface';
+import { useAppTheme } from '@/hooks';
+import BasketScreen from '@/stacks/basket';
+import HomeScreen from '@/stacks/home';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import AccountStackScreen from './account-navigator';
-import { useColorScheme } from 'react-native';
-import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 
 const Tab = createMaterialBottomTabNavigator<MainAppNavigatorParamList>();
 
 const MainAppNavigator = () => {
-  const colorScheme = useColorScheme();
-
-  const theme = colorScheme === 'light' ? MD3LightTheme : MD3DarkTheme;
+  const theme = useAppTheme();
 
   return (
     <Tab.Navigator
       theme={theme}
+      activeColor={theme.colors.secondary}
+      inactiveColor={theme.colors.onBackground}
+      activeIndicatorStyle={{ backgroundColor: theme.colors.onSecondary }}
+      barStyle={{
+        backgroundColor: theme.colors.elevation.level2,
+        borderTopColor: theme.colors.backdrop,
+        borderTopWidth: 1,
+      }}
       sceneAnimationEnabled
       initialRouteName="Shop"
       backBehavior="initialRoute">

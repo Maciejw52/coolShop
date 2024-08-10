@@ -1,14 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Icon } from '@/imports';
+import { useAppTheme } from '@/hooks';
+import { AppTheme } from '@/theme';
 
 export const ScreenInProgress = () => {
+  const theme = useAppTheme();
+  const styles = makeStyles(theme);
+
   return (
     <View style={styles.container}>
       <Icon
         name="hammer-wrench"
         size={120}
-        color="rgb(255, 255, 255)"
+        color={theme.colors.primary}
         style={styles.icon}
       />
       <Text style={styles.title}>Screen In Progress</Text>
@@ -19,27 +24,27 @@ export const ScreenInProgress = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: 'rgb(223, 223, 223)',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 20,
-    color: 'rgb(170, 170, 170)',
-    textAlign: 'center',
-    paddingHorizontal: 30,
-  },
-});
+const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    icon: {
+      marginBottom: spacing.md,
+    },
+    title: {
+      fontSize: fontSize.lg,
+      fontWeight: 'bold',
+      color: colors.text,
+      marginBottom: spacing.md,
+    },
+    subtitle: {
+      fontSize: fontSize.md,
+      color: colors.text,
+      textAlign: 'center',
+    },
+  });
 
 export default ScreenInProgress;
