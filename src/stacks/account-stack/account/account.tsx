@@ -20,7 +20,7 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
       const { type, destination } = option.action;
       if (type === 'navigate') {
         try {
-          navigation.navigate(destination as any);
+          navigation.navigate(destination as never);
         } catch {
           Alert.alert('Could Not navigate to this');
         }
