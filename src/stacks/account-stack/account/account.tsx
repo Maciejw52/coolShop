@@ -38,11 +38,14 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView testID="account-screen" style={styles.container}>
         <View>
-          <Text>Account Options</Text>
+          <Text testID="account-screen-sections-title">Account Options</Text>
           {accountOptionsData.map((optionSection, index) => (
-            <List.Section key={index} style={styles.section}>
+            <List.Section
+              key={index}
+              style={styles.section}
+              testID={`account-options-section-${index}`}>
               {optionSection.map(option => {
                 return (
                   <LinkPanel
@@ -55,6 +58,7 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
                       (!fullName || !address)
                     }
                     onPress={() => handleCTAction(option)}
+                    testID={`account-option-${option.title}`}
                   />
                 );
               })}
@@ -68,6 +72,7 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
+        testID="account-snackbar"
         action={{
           label: 'Hide',
           onPress: onDismissSnackBar,

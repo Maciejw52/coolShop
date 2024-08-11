@@ -5,8 +5,7 @@ import { StatusBar, useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import MainAppNavigator from '@/navigation/main-navigator';
 import { CombinedDarkTheme, CombinedLightTheme } from '@/theme';
-import { Provider } from 'react-redux';
-import { store } from './store';
+import { AppStoreProvider } from './store';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -28,7 +27,7 @@ const App = () => {
   };
 
   return (
-    <Provider store={store}>
+    <AppStoreProvider>
       <PaperProvider theme={theme}>
         <NavigationContainer theme={NavigationTheme}>
           <StatusBar
@@ -38,7 +37,7 @@ const App = () => {
           <MainAppNavigator />
         </NavigationContainer>
       </PaperProvider>
-    </Provider>
+    </AppStoreProvider>
   );
 };
 

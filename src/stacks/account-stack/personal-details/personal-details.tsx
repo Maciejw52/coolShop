@@ -6,8 +6,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { updateAccount } from '@/store/slices/account-data-slice';
 import { AppTheme, useAppTheme } from '@/theme';
 import { Formik } from 'formik';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text, TextInput } from 'react-native-paper';
 import { FormValues } from './types';
 import { validationSchema } from './validation';
 
@@ -35,8 +35,7 @@ export const PersonalDetailsScreen = ({
   return (
     <View style={styles.pageContainer}>
       <Text>
-        We need the following details so that you can receive your order with no
-        fuss.
+        We need the following details so we know where to send your order.
       </Text>
       <Formik
         initialValues={{
@@ -69,6 +68,7 @@ export const PersonalDetailsScreen = ({
                   onChangeText={handleChange('fullName')}
                   onBlur={handleBlur('fullName')}
                   enablesReturnKeyAutomatically
+                  testID="full-name-input"
                 />
                 <FormError name="fullName" />
               </View>
@@ -83,6 +83,7 @@ export const PersonalDetailsScreen = ({
                   keyboardType="email-address"
                   autoCapitalize="none"
                   enablesReturnKeyAutomatically
+                  testID="email-input"
                 />
                 <FormError name="email" />
               </View>
@@ -96,6 +97,7 @@ export const PersonalDetailsScreen = ({
                   onBlur={handleBlur('phoneNumber')}
                   keyboardType="phone-pad"
                   enablesReturnKeyAutomatically
+                  testID="phone-number-input"
                 />
                 <FormError name="phoneNumber" />
               </View>
@@ -110,6 +112,7 @@ export const PersonalDetailsScreen = ({
                   multiline
                   enablesReturnKeyAutomatically
                   numberOfLines={4}
+                  testID="address-input"
                 />
                 <FormError name="address" />
               </View>

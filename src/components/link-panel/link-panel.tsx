@@ -4,7 +4,7 @@ import { AppTheme } from '@/theme';
 import { StyleSheet } from 'react-native';
 import { List, Text } from 'react-native-paper';
 
-interface LinkPanelProps {
+interface LinkPanelProps extends React.ComponentProps<typeof List.Item> {
   title: string;
   icon: string;
   status?: 'error' | 'default';
@@ -18,6 +18,8 @@ const LinkPanelComponent = ({
   status = 'default',
   showActionRequired = false,
   onPress,
+  testID = `link-panel-${title}`,
+  ...props
 }: LinkPanelProps) => {
   const theme = useAppTheme();
   const styles = makeStyles(theme);
@@ -34,7 +36,11 @@ const LinkPanelComponent = ({
       titleStyle={styles.title}
       description={
         showActionRequired ? (
-          <Text style={styles.descriptionError}>Action Required</Text>
+          <Text
+            testID={`action-required-${title}`}
+            style={styles.descriptionError}>
+            Action Required
+          </Text>
         ) : undefined
       }
       testID={`link-panel-${title}`}
@@ -42,6 +48,7 @@ const LinkPanelComponent = ({
       right={props => <List.Icon {...props} icon="chevron-right" />}
       onPress={onPress}
       style={listItemStyles}
+      {...props}
     />
   );
 };
