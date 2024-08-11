@@ -1,8 +1,6 @@
-import React, { PropsWithChildren } from 'react';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import accountDataReducer from './slices/account-data-slice';
 import { RootState } from './store.interface';
-import { Provider } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import type { PersistPartial } from 'redux-persist/es/persistReducer';
@@ -27,10 +25,10 @@ export const setupStore = (preloadedState?: RootState & PersistPartial) => {
           ignoredActions: ['persist/PERSIST'],
         },
       }),
-    preloadedState,
   });
 };
 
 const store = setupStore();
 const persistor = persistStore(store);
+
 export { store, persistor };

@@ -10,14 +10,15 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { FormValues } from './types';
 import { validationSchema } from './validation';
+import { useNavigation } from '@react-navigation/native';
 
-export const PersonalDetailsScreen = ({
-  navigation,
-}: PersonalDetailsScreenProps) => {
+export const PersonalDetailsScreen = () => {
   const theme = useAppTheme();
   const styles = makeStyles(theme);
   const dispatch = useAppDispatch();
   const accountData = useAppSelector(state => state.accountData);
+
+  const navigation = useNavigation();
 
   const navigateBack = () => {
     navigation.canGoBack() && navigation.goBack();

@@ -1,5 +1,8 @@
 import { StackScreenProps } from '@react-navigation/stack';
 
+export type RootStackParamList = MainAppNavigatorParamList &
+  AccountStackParamList;
+
 export type MainAppNavigatorParamList = {
   Shop: { initialRoute: boolean };
   Basket: undefined;

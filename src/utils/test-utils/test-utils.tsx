@@ -4,9 +4,11 @@ import type { RenderOptions } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { setupStore } from '@/store';
 import { AppStore, RootState } from '@/store/store.interface';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { PaperProvider } from 'react-native-paper';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: Partial<RootState>;
+  preloadedState?: Partial<RootState> & PersistPartial;
   store?: AppStore;
 }
 
@@ -21,7 +23,9 @@ export function renderWithProviders(
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>{children}</Provider>
+    <PaperProvider>
+      <Provider store={store}>{children}</Provider>
+    </PaperProvider>
   );
 
   return {

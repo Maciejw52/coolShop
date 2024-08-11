@@ -8,6 +8,7 @@ import { PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
+import { RootStackParamList } from './app.interface';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -46,3 +47,9 @@ const App = () => {
 };
 
 export default App;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}

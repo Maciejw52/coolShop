@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { AccountScreenProps } from '@/app.interface';
+import { AccountScreenProps, AccountStackParamList } from '@/app.interface';
 import LinkPanel from '@/components/link-panel';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { clearAccountData } from '@/store/slices/account-data-slice';
@@ -9,14 +9,16 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { List, Snackbar, Text } from 'react-native-paper';
 import { accountOptionsData } from './account-options';
 import { AccountOption } from './types';
+import { useNavigation } from '@react-navigation/native';
 
-export const AccountScreen = ({ navigation }: AccountScreenProps) => {
+export const AccountScreen = () => {
   const theme = useAppTheme();
   const styles = makeStyles(theme);
   const disaptch = useAppDispatch();
   const { fullName, address } = useAppSelector(state => state.accountData);
+  const navigation = useNavigation();
 
-  // Temporary place to house snackbar
+  // Temporary place to house snackbara
   const [visible, setVisible] = React.useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
