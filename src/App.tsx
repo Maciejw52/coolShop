@@ -1,10 +1,14 @@
 import React from 'react';
 
+import MainAppNavigator from '@/navigation/main-navigator';
+import { CombinedDarkTheme, CombinedLightTheme } from '@/theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
-import MainAppNavigator from '@/navigation/main-navigator';
-import { CombinedDarkTheme, CombinedLightTheme } from '@/theme';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './store';
+import { RootStackParamList } from './app.interface';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,16 +30,26 @@ const App = () => {
   };
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer theme={NavigationTheme}>
-        <StatusBar
-          barStyle={barStyle}
-          backgroundColor={theme.colors.background}
-        />
-        <MainAppNavigator />
-      </NavigationContainer>
-    </PaperProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider theme={theme}>
+          <NavigationContainer theme={NavigationTheme}>
+            <StatusBar
+              barStyle={barStyle}
+              backgroundColor={theme.colors.background}
+            />
+            <MainAppNavigator />
+          </NavigationContainer>
+        </PaperProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 
 export default App;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}

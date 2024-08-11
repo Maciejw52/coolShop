@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAppTheme } from '@/hooks';
+import { useAppTheme } from '@/theme';
 import {
   NavigationProp,
   useNavigation,

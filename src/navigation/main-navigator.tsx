@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MainAppNavigatorParamList } from '@/app.interface';
-import { useAppTheme } from '@/hooks';
+import { useAppTheme } from '@/theme';
 import BasketScreen from '@/stacks/basket';
 import HomeScreen from '@/stacks/home';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
@@ -31,6 +31,7 @@ const MainAppNavigator = () => {
         options={{
           tabBarLabel: 'Basket',
           tabBarIcon: 'basket',
+          tabBarButtonTestID: 'basket-tab-bar-button',
         }}
         component={BasketScreen}
       />
@@ -39,6 +40,7 @@ const MainAppNavigator = () => {
         options={{
           tabBarLabel: 'Shop',
           tabBarIcon: 'shopping-outline',
+          tabBarButtonTestID: 'shop-tab-bar-button',
         }}
         component={HomeScreen}
         initialParams={{ initialRoute: true }}
@@ -48,6 +50,7 @@ const MainAppNavigator = () => {
         options={{
           tabBarLabel: 'Account',
           tabBarIcon: 'account-circle',
+          tabBarButtonTestID: 'account-tab-bar-button',
         }}
         component={AccountStackScreen}
       />
