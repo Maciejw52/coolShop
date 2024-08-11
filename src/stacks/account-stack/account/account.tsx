@@ -87,7 +87,7 @@ const makeStyles = ({ colors, spacing }: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.lg,
       justifyContent: 'space-between',
     },
     section: {

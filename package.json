@@ -18,6 +18,7 @@
     "ios:e2e-release": "detox test --configuration ios.sim.release"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.2.7",
@@ -31,6 +32,7 @@
     "react-native-screens": "^3.34.0",
     "react-native-vector-icons": "^10.1.0",
     "react-redux": "^9.1.2",
+    "redux-persist": "^6.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
