@@ -2,10 +2,10 @@ import { AccountDataState } from '@/app.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AccountDataState = {
-  fullName: '',
+  fullName: undefined,
   contactInfo: {
-    email: '',
-    phoneNumber: '',
+    email: undefined,
+    phoneNumber: undefined,
   },
   address: undefined,
 };
