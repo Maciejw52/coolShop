@@ -7,12 +7,7 @@ const initialState: AccountDataState = {
     email: '',
     phoneNumber: '',
   },
-  address: {
-    street: '',
-    city: '',
-    state: '',
-    postalCode: '',
-  },
+  address: undefined,
 };
 
 export const accountDataSlice = createSlice({

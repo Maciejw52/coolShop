@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { useAppTheme } from '@/hooks';
+import { useAppTheme } from '@/theme';
 import { AppTheme } from '@/theme';
 import { Icon } from 'react-native-paper';
 

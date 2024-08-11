@@ -3,8 +3,8 @@ import { Alert, SafeAreaView, StyleSheet, View } from 'react-native';
 import { List, Text } from 'react-native-paper';
 import { AccountStackParamList } from '@/app.interface';
 import { LinkPanel } from '@/components/link-panel/link-panel';
-import { useAppTheme } from '@/hooks';
-import { AppTheme } from '@/theme';
+import { useAppSelector } from '@/hooks';
+import { AppTheme, useAppTheme } from '@/theme';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AccountOption } from './types';
 import { accountOptionsData } from './account-options';
@@ -14,6 +14,7 @@ type AccountScreenProps = StackScreenProps<AccountStackParamList, 'Account'>;
 export const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const theme = useAppTheme();
   const styles = makeStyles(theme);
+  const { fullName, address } = useAppSelector(state => state.accountData);
 
   const handleCTAction = useCallback(
     (option: AccountOption) => {
@@ -38,15 +39,21 @@ export const AccountScreen = ({ navigation }: AccountScreenProps) => {
         <Text>Account Options</Text>
         {accountOptionsData.map((optionSection, index) => (
           <List.Section key={index} style={styles.section}>
-            {optionSection.map(option => (
-              <LinkPanel
-                key={option.title}
-                title={option.title}
-                icon={option.icon}
-                status={option?.status}
-                onPress={() => handleCTAction(option)}
-              />
-            ))}
+            {optionSection.map(option => {
+              return (
+                <LinkPanel
+                  key={option.title}
+                  title={option.title}
+                  icon={option.icon}
+                  status={option?.status}
+                  showActionRequired={
+                    option.title === 'Manage personal details' &&
+                    (!fullName || !address)
+                  }
+                  onPress={() => handleCTAction(option)}
+                />
+              );
+            })}
           </List.Section>
         ))}
       </View>

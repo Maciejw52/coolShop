@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MainAppNavigatorParamList } from '@/app.interface';
-import { useAppTheme } from '@/hooks';
+import { useAppTheme } from '@/theme';
 import BasketScreen from '@/stacks/basket';
 import HomeScreen from '@/stacks/home';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
