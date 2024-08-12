@@ -22,13 +22,11 @@ export const saveCardTWalletKeychain = async (newCard: Card) => {
 
     await Keychain.setGenericPassword('wallet', JSON.stringify(updatedWallet));
   } catch (error) {
-    throw new Error('Failed to save card');
+    return Promise.reject('Could not save card to wallet');
   }
 };
 
-export const getCardFromWalletKeychain = async (
-  cardId: string,
-): Promise<Card | null> => {
+export const getCardFromWalletKeychain = async (cardId: string) => {
   try {
     const keychainStore = await Keychain.getGenericPassword();
 
@@ -43,15 +41,7 @@ export const getCardFromWalletKeychain = async (
       return null;
     }
   } catch (error) {
-    throw new Error('Failed to retrieve card');
-  }
-};
-
-export const purgeKeychainStorage = async () => {
-  try {
-    await Keychain.resetGenericPassword();
-  } catch (error) {
-    throw new Error('Failed to purge keychain storage');
+    return Promise.reject('Could not find card in wallet');
   }
 };
 
@@ -72,9 +62,17 @@ export const removeCardFromWalletKeychain = async (cardId: string) => {
         JSON.stringify(updatedWallet),
       );
     } else {
-      throw new Error('No wallet found');
+      return Promise.reject('Wallet not found');
     }
   } catch (error) {
-    throw new Error('Failed to remove card');
+    return Promise.reject('Could not delete card from wallet');
+  }
+};
+
+export const purgeKeychainStorage = async () => {
+  try {
+    await Keychain.resetGenericPassword();
+  } catch (error) {
+    return Promise.reject('Failed to delete all cards');
   }
 };

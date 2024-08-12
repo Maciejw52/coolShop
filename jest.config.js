@@ -7,7 +7,8 @@ module.exports = {
     'node_modules/(?!((jest-)?react-native|react-navigation|react-native-reanimated|react-native-keychain|@react-navigation/.*|@react-native(-community)?|react-native-vector-icons|react-redux)/)',
   ],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
-  testMatch: ['**/*.spec.tsx'],
+  modulePathIgnorePatterns: ['<rootDir>/e2e/'],
+  testMatch: ['**/*.spec.tsx', '**/*.spec.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },

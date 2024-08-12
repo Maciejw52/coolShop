@@ -12,10 +12,8 @@ import { setUpTests } from 'react-native-reanimated';
 
 setUpTests();
 
-jest.mock('react-native-keychain', () => {
-  return {
-    setGenericPassword: jest.fn((username, password) => {}),
-    getGenericPassword: jest.fn(),
-    resetGenericPassword: jest.fn(),
-  };
-});
+jest.mock('react-native-keychain', () => ({
+  setGenericPassword: jest.fn(() => Promise.resolve('mockPass')),
+  getGenericPassword: jest.fn(() => Promise.resolve('mockPass')),
+  resetGenericPassword: jest.fn(() => Promise.resolve(null)),
+}));

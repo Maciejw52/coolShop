@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
@@ -8,7 +8,7 @@ import { AppTheme, cardColours, useAppTheme } from '@/theme';
 import { saveCardTWalletKeychain } from '@/utils/keychain-utils';
 import uuid from 'react-native-uuid';
 import { validationSchema } from './validation';
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppDispatch } from '@/hooks';
 import { addCard } from '@/store/slices/wallet-slice';
 
 export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
@@ -33,23 +33,32 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
           color: cardColours[Math.floor(Math.random() * cardColours.length)],
         }),
       );
-      onCardSaved();
     });
+  };
+
+  const initialFormValues = {
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
   };
 
   return (
     <View>
       <Formik
-        initialValues={{
-          cardNumber: '',
-          expiryDate: '',
-          cvv: '',
-        }}
+        initialValues={initialFormValues}
         validationSchema={validationSchema}
         onSubmit={values => {
           submitNewCard(values);
         }}>
-        {({ handleChange, handleBlur, values, errors, handleSubmit }) => (
+        {({
+          handleChange,
+          handleBlur,
+          values,
+          errors,
+          handleSubmit,
+          setValues,
+          setErrors,
+        }) => (
           <View style={styles.form}>
             <TextInput
               mode="outlined"
@@ -97,6 +106,12 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 mode="contained"
                 onPress={() => {
                   handleSubmit();
+
+                  onCardSaved();
+                  setTimeout(() => {
+                    setValues(initialFormValues);
+                    setErrors({});
+                  }, 2000);
                 }}>
                 Save Card
               </Button>

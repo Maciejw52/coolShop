@@ -5,7 +5,11 @@ import { AddCreditCard } from '@/components/add-credit-card';
 import { useAppSelector } from '@/hooks';
 import { AppTheme, useAppTheme } from '@/theme';
 import { CreditCard } from '@/components/credit-card';
-import { ScrollView } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 export const WalletScreen = () => {
   const theme = useAppTheme();
@@ -13,38 +17,65 @@ export const WalletScreen = () => {
   const { noOfCards, secureWallet } = useAppSelector(state => state.wallet);
   const MAX_NO_OF_CARDS = 4;
 
-  const [showForm, setShowForm] = useState(noOfCards === 0);
+  const [showForm, setShowForm] = useState(false);
 
-  const handleAddPress = () => setShowForm(true);
-  const handleCardSaved = () => setShowForm(false);
+  // Cool Animation :)
+  const offsetY = useSharedValue(0);
+  const formOpacity = useSharedValue(0);
+  const formTranslateX = useSharedValue(500);
 
-  const renderAddButton = noOfCards < MAX_NO_OF_CARDS && !showForm;
+  const handleAddPress = () => {
+    setShowForm(true);
+    offsetY.value = withTiming(200, { duration: 300 });
+    formOpacity.value = withTiming(1, { duration: 500 });
+    formTranslateX.value = withTiming(0, { duration: 500 });
+  };
+
+  const handleCardSaved = () => {
+    setShowForm(false);
+    offsetY.value = withTiming(0, { duration: 300 });
+    formOpacity.value = withTiming(0, { duration: 300 });
+    formTranslateX.value = withTiming(200, { duration: 300 });
+  };
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: offsetY.value - 220 }],
+    };
+  });
+
+  const formAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: formOpacity.value,
+      transform: [{ translateX: formTranslateX.value }],
+    };
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>My Cards</Text>
-        {renderAddButton && (
+        {noOfCards < MAX_NO_OF_CARDS && (
           <Button
             mode="text"
-            onPress={handleAddPress}
+            onPress={showForm ? handleCardSaved : handleAddPress}
             labelStyle={styles.addButton}>
-            + Add
+            {showForm ? 'Discard' : '+ Add'}
           </Button>
         )}
       </View>
-      {(noOfCards === 0 || showForm) && (
+      <Animated.View style={[formAnimatedStyle]}>
         <AddCreditCard onCardSaved={handleCardSaved} />
-      )}
-      {!showForm && (
-        <ScrollView
+      </Animated.View>
+      <Animated.View style={[animatedStyle]}>
+        <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.cardContainer}>
-          {secureWallet.map(card => (
+          {[...secureWallet].reverse().map(card => (
             <CreditCard key={card.cardId} card={card} />
           ))}
-        </ScrollView>
-      )}
+        </Animated.ScrollView>
+      </Animated.View>
     </View>
   );
 };
