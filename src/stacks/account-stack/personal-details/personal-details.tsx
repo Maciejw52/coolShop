@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import FormError from '@/components/form-field';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const PersonalDetailsScreen = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const dispatch = useAppDispatch();
   const accountData = useAppSelector(state => state.accountData);
 

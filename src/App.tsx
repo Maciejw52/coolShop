@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
 import { RootStackParamList } from './app.interface';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,19 +31,21 @@ const App = () => {
   };
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider theme={theme}>
-          <NavigationContainer theme={NavigationTheme}>
-            <StatusBar
-              barStyle={barStyle}
-              backgroundColor={theme.colors.background}
-            />
-            <MainAppNavigator />
-          </NavigationContainer>
-        </PaperProvider>
-      </PersistGate>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider theme={theme}>
+            <NavigationContainer theme={NavigationTheme}>
+              <StatusBar
+                barStyle={barStyle}
+                backgroundColor={theme.colors.background}
+              />
+              <MainAppNavigator />
+            </NavigationContainer>
+          </PaperProvider>
+        </PersistGate>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
 

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import FormError from '@/components/form-field';
 
-import { AppTheme, useAppTheme } from '@/theme';
+import { AppTheme, cardColours, useAppTheme } from '@/theme';
 import { saveCardTWalletKeychain } from '@/utils/keychain-utils';
 import uuid from 'react-native-uuid';
 import { validationSchema } from './validation';
@@ -13,14 +13,8 @@ import { addCard } from '@/store/slices/wallet-slice';
 
 export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const dispatch = useAppDispatch();
-
-  const colorOptions = [
-    theme.colors.primaryContainer,
-    theme.colors.secondaryContainer,
-    theme.colors.tertiaryContainer,
-  ];
 
   const submitNewCard = async (values: {
     cardNumber: string;
@@ -36,7 +30,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
         addCard({
           cardId: generatedId,
           cardNumber: `****  ${values.cardNumber.slice(-4)}`,
-          color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
+          color: cardColours[Math.floor(Math.random() * cardColours.length)],
         }),
       );
       onCardSaved();
@@ -65,6 +59,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
               onBlur={handleBlur('cardNumber')}
               keyboardType="number-pad"
               maxLength={16}
+              enablesReturnKeyAutomatically
             />
             <View style={styles.cardSecondaryContainer}>
               <TextInput
@@ -75,6 +70,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 onBlur={handleBlur('expiryDate')}
                 keyboardType="number-pad"
                 maxLength={5}
+                enablesReturnKeyAutomatically
               />
               <TextInput
                 mode="outlined"
@@ -84,6 +80,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 onBlur={handleBlur('cvv')}
                 keyboardType="number-pad"
                 maxLength={3}
+                enablesReturnKeyAutomatically
               />
             </View>
             <FormError name="cardNumber" />

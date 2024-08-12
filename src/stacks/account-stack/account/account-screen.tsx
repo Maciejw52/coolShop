@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import LinkPanel from '@/components/link-panel';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -14,7 +14,7 @@ import { purgeKeychainStorage } from '@/utils/keychain-utils';
 
 export const AccountScreen = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const disaptch = useAppDispatch();
   const { fullName, address } = useAppSelector(state => state.accountData);
   const { noOfCards } = useAppSelector(state => state.wallet);

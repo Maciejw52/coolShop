@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { AddCreditCard } from '@/components/add-credit-card';
@@ -9,28 +9,32 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export const CardsScreen = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
-
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { noOfCards, secureWallet } = useAppSelector(state => state.wallet);
   const MAX_NO_OF_CARDS = 4;
 
   const [showForm, setShowForm] = useState(noOfCards === 0);
 
+  const handleAddPress = () => setShowForm(true);
+  const handleCardSaved = () => setShowForm(false);
+
+  const renderAddButton = noOfCards < MAX_NO_OF_CARDS && !showForm;
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>My Cards</Text>
-        {noOfCards < MAX_NO_OF_CARDS && !showForm && (
+        {renderAddButton && (
           <Button
             mode="text"
-            onPress={() => setShowForm(true)}
+            onPress={handleAddPress}
             labelStyle={styles.addButton}>
             + Add
           </Button>
         )}
       </View>
       {(noOfCards === 0 || showForm) && (
-        <AddCreditCard onCardSaved={() => setShowForm(false)} />
+        <AddCreditCard onCardSaved={handleCardSaved} />
       )}
       {!showForm && (
         <ScrollView

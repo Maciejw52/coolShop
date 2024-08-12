@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useAppTheme } from '@/theme';
 import { AppTheme } from '@/theme';
 import { StyleSheet } from 'react-native';
@@ -22,7 +22,7 @@ const LinkPanelComponent = ({
   ...props
 }: LinkPanelProps) => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
 
   const listItemStyles = [
     status === 'default' && styles.listItem,

@@ -17,6 +17,7 @@ const AccountStackScreen = () => {
         name="Account"
         component={AccountScreen}
         options={{
+          title: 'My Account',
           header: () => <Navbar title="My Account" mode="large" />,
         }}
         initialParams={{ initialRoute: true }}
@@ -25,6 +26,7 @@ const AccountStackScreen = () => {
         name="PersonalDetails"
         component={PersonalDetailsScreen}
         options={{
+          title: 'Personal Details',
           header: () => (
             <Navbar title="Personal Details" mode="center-aligned" />
           ),
@@ -34,6 +36,7 @@ const AccountStackScreen = () => {
         name="Cards"
         component={CardsScreen}
         options={{
+          title: 'Saved Cards',
           header: () => <Navbar title="Saved Cards" mode="center-aligned" />,
         }}
       />
@@ -41,6 +44,7 @@ const AccountStackScreen = () => {
         name="AppSettings"
         component={AppSettings}
         options={{
+          title: 'Settings',
           header: () => <Navbar title="Settings" mode="center-aligned" />,
         }}
       />
