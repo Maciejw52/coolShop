@@ -17,6 +17,7 @@ export const AccountScreen = () => {
   const styles = makeStyles(theme);
   const disaptch = useAppDispatch();
   const { fullName, address } = useAppSelector(state => state.accountData);
+  const { noOfCards } = useAppSelector(state => state.wallet);
   const navigation = useNavigation();
 
   // Temporary place to house snackbara
@@ -41,6 +42,19 @@ export const AccountScreen = () => {
     [navigation],
   );
 
+  const isActionRequired = (option: AccountOption): boolean => {
+    switch (option.title) {
+      case 'Manage personal details':
+        return !fullName || !address;
+      case 'Wallet':
+        return noOfCards === 0;
+      default:
+        return false;
+    }
+  };
+
+  console.log('asd');
+
   return (
     <>
       <SafeAreaView testID="account-screen" style={styles.container}>
@@ -58,10 +72,7 @@ export const AccountScreen = () => {
                     title={option.title}
                     icon={option.icon}
                     status={option?.status}
-                    showActionRequired={
-                      option.title === 'Manage personal details' &&
-                      (!fullName || !address)
-                    }
+                    showActionRequired={isActionRequired(option)}
                     onPress={() => handleCTAction(option)}
                     testID={`account-option-${option.title}`}
                   />

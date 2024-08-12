@@ -94,7 +94,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 disabled={
                   !!errors.cardNumber || !!errors.cvv || !!errors.expiryDate
                 }
-                mode="contained-tonal"
+                mode="contained"
                 onPress={() => {
                   handleSubmit();
                 }}>
@@ -124,8 +124,11 @@ const makeStyles = ({ spacing }: AppTheme) =>
     submitContainer: {
       gap: spacing.xs,
       paddingVertical: spacing.md,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
     },
     cardSecondaryContainer: {
+      marginTop: spacing.sm,
       flexDirection: 'row',
       alignItems: 'center',
       gap: spacing.lg,

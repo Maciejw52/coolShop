@@ -20,7 +20,7 @@ export const CardsScreen = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>My Cards</Text>
-        {noOfCards < MAX_NO_OF_CARDS && (
+        {noOfCards < MAX_NO_OF_CARDS && !showForm && (
           <Button
             mode="text"
             onPress={() => setShowForm(true)}
@@ -32,13 +32,15 @@ export const CardsScreen = () => {
       {(noOfCards === 0 || showForm) && (
         <AddCreditCard onCardSaved={() => setShowForm(false)} />
       )}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.cardContainer}>
-        {secureWallet.map(card => (
-          <CreditCard key={card.cardId} card={card} />
-        ))}
-      </ScrollView>
+      {!showForm && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.cardContainer}>
+          {secureWallet.map(card => (
+            <CreditCard key={card.cardId} card={card} />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };

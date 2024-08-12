@@ -31,7 +31,11 @@ export const CreditCard = ({ card }: CreditCardProps) => {
       style={[styles.cardContainer, { backgroundColor: color }]}>
       <View style={styles.cardSpacing}>
         <Text style={styles.cardTitle}>COOL CREDIT :)</Text>
-        <Icon size={23} source={'contactless-payment'} />
+        <Icon
+          size={23}
+          color={theme.colors.white}
+          source={'contactless-payment'}
+        />
       </View>
       <View>
         <Text style={styles.cardNumber}>{cardNumber}</Text>
@@ -44,7 +48,7 @@ export const CreditCard = ({ card }: CreditCardProps) => {
   );
 };
 
-const makeStyles = ({ spacing, fontSize }: AppTheme) =>
+const makeStyles = ({ spacing, fontSize, colors }: AppTheme) =>
   StyleSheet.create({
     cardContainer: {
       width: 310,
@@ -56,14 +60,17 @@ const makeStyles = ({ spacing, fontSize }: AppTheme) =>
     },
     cardTitle: {
       fontWeight: 'bold',
+      color: colors.white,
     },
     cardNumber: {
       fontSize: fontSize.lg,
       fontWeight: 'bold',
       letterSpacing: 3,
+      color: colors.white,
     },
     cardExpiry: {
       fontSize: fontSize.md,
+      color: colors.white,
     },
     cardSpacing: {
       flexDirection: 'row',
@@ -72,5 +79,6 @@ const makeStyles = ({ spacing, fontSize }: AppTheme) =>
     cardCvv: {
       fontSize: fontSize.sm,
       fontWeight: 'bold',
+      color: colors.white,
     },
   });
