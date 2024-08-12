@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 
-import { AccountScreenProps, AccountStackParamList } from '@/app.interface';
 import LinkPanel from '@/components/link-panel';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { clearAccountData } from '@/store/slices/account-data-slice';
@@ -10,6 +9,8 @@ import { List, Snackbar, Text } from 'react-native-paper';
 import { accountOptionsData } from './account-options';
 import { AccountOption } from './types';
 import { useNavigation } from '@react-navigation/native';
+import { clearWallet } from '@/store/slices/wallet-slice';
+import { purgeKeychainStorage } from '@/utils/keychain-utils';
 
 export const AccountScreen = () => {
   const theme = useAppTheme();
@@ -32,6 +33,8 @@ export const AccountScreen = () => {
         navigation.navigate(destination as never);
       } else if (type === 'state-change') {
         disaptch(clearAccountData());
+        disaptch(clearWallet());
+        purgeKeychainStorage();
         onToggleSnackBar();
       }
     },

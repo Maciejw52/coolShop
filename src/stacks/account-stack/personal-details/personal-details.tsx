@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { PersonalDetailsScreenProps } from '@/app.interface';
 import FormError from '@/components/form-field';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { updateAccount } from '@/store/slices/account-data-slice';

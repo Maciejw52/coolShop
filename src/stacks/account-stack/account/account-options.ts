@@ -11,7 +11,7 @@ export const accountOptionsData: AccountOption[][] = [
       },
     },
     {
-      title: 'Card details',
+      title: 'Wallet',
       icon: 'credit-card',
       action: {
         type: 'navigate',

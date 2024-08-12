@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import accountDataReducer from './slices/account-data-slice';
+import walletReducer from './slices/wallet-slice';
 import { RootState } from './store.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -12,6 +13,7 @@ const persistConfig = {
 
 export const rootReducer = combineReducers({
   accountData: accountDataReducer,
+  wallet: walletReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

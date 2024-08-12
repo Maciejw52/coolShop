@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Navbar from '@/components/navbar';
 import AccountScreen from '@/stacks/account-stack/account';
 import PersonalDetailsScreen from '@/stacks/account-stack/personal-details';
-import CardsScreen from '@/stacks/account-stack/cards';
+import CardsScreen from '@/stacks/account-stack/wallet';
 import AppSettings from '@/stacks/account-stack/app-settings';
 
 const AccountStack = createStackNavigator<AccountStackParamList>();
