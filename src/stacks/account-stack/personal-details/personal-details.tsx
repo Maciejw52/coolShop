@@ -33,7 +33,7 @@ export const PersonalDetailsScreen = () => {
   };
 
   return (
-    <View style={styles.pageContainer}>
+    <View testID="personal-details-screen" style={styles.pageContainer}>
       <Text>
         We need the following details so we know where to send your order.
       </Text>

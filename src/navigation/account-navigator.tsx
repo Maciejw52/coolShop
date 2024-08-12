@@ -5,8 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Navbar from '@/components/navbar';
 import AccountScreen from '@/stacks/account-stack/account';
 import PersonalDetailsScreen from '@/stacks/account-stack/personal-details';
-import CardsScreen from '@/stacks/account-stack/wallet';
-import AppSettings from '@/stacks/account-stack/app-settings';
+import WalletScreen from '@/stacks/account-stack/wallet';
 
 const AccountStack = createStackNavigator<AccountStackParamList>();
 
@@ -33,19 +32,11 @@ const AccountStackScreen = () => {
         }}
       />
       <AccountStack.Screen
-        name="Cards"
-        component={CardsScreen}
+        name="Wallet"
+        component={WalletScreen}
         options={{
-          title: 'Saved Cards',
-          header: () => <Navbar title="Saved Cards" mode="center-aligned" />,
-        }}
-      />
-      <AccountStack.Screen
-        name="AppSettings"
-        component={AppSettings}
-        options={{
-          title: 'Settings',
-          header: () => <Navbar title="Settings" mode="center-aligned" />,
+          title: 'Wallet',
+          header: () => <Navbar title="Wallet" mode="center-aligned" />,
         }}
       />
     </AccountStack.Navigator>

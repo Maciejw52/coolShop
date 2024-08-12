@@ -38,7 +38,7 @@ export const RightSwipeActionCard = ({
   );
 };
 
-const makeStyles = ({ colors }: AppTheme) =>
+const makeStyles = ({ colors, spacing }: AppTheme) =>
   StyleSheet.create({
     swipeableContainer: {
       flexDirection: 'column',
@@ -46,6 +46,7 @@ const makeStyles = ({ colors }: AppTheme) =>
       borderBottomRightRadius: 12,
       overflow: 'hidden',
       height: '100%',
+      marginLeft: -spacing.sm,
     },
     swipedButton: {
       justifyContent: 'center',

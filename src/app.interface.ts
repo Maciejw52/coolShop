@@ -12,7 +12,7 @@ export type MainAppNavigatorParamList = {
 export type AccountStackParamList = {
   Account: { initialRoute: boolean };
   PersonalDetails: undefined;
-  Cards: undefined;
+  Wallet: undefined;
   AppSettings: undefined;
 };
 

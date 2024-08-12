@@ -14,9 +14,6 @@ export const accountDataSlice = createSlice({
   name: 'accountData',
   initialState,
   reducers: {
-    setAccount: (state, action: PayloadAction<AccountDataState>) => {
-      return action.payload;
-    },
     updateAccount: (
       state,
       action: PayloadAction<Partial<AccountDataState>>,
@@ -29,7 +26,6 @@ export const accountDataSlice = createSlice({
   },
 });
 
-export const { setAccount, updateAccount, clearAccountData } =
-  accountDataSlice.actions;
+export const { updateAccount, clearAccountData } = accountDataSlice.actions;
 
 export default accountDataSlice.reducer;

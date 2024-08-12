@@ -1,1 +1,1 @@
-export { CardsScreen as default } from './wallet';
+export { WalletScreen as default } from './wallet';

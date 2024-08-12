@@ -7,7 +7,7 @@ import { AppTheme, useAppTheme } from '@/theme';
 import { CreditCard } from '@/components/credit-card';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export const CardsScreen = () => {
+export const WalletScreen = () => {
   const theme = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const { noOfCards, secureWallet } = useAppSelector(state => state.wallet);

@@ -60,6 +60,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
               keyboardType="number-pad"
               maxLength={16}
               enablesReturnKeyAutomatically
+              testID="card-number-input"
             />
             <View style={styles.cardSecondaryContainer}>
               <TextInput
@@ -71,6 +72,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 keyboardType="number-pad"
                 maxLength={5}
                 enablesReturnKeyAutomatically
+                testID="expiry-date-input"
               />
               <TextInput
                 mode="outlined"
@@ -81,6 +83,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 keyboardType="number-pad"
                 maxLength={3}
                 enablesReturnKeyAutomatically
+                testID="cvv-input"
               />
             </View>
             <FormError name="cardNumber" />
