@@ -2,19 +2,39 @@ import React, { useMemo, useState } from 'react';
 import { View, Image, Pressable, StyleSheet } from 'react-native';
 import { Button, Icon, Text } from 'react-native-paper';
 import { AppTheme, useAppTheme } from '@/theme';
+import { useAppDispatch } from '@/hooks';
+import { addItemToBasket } from '@/store/slices/basket-slice';
+import { Product } from '@/app.interface';
 
-export const ShopItem = ({ item }) => {
+interface ShopItemProps {
+  item: Product;
+}
+
+export const ShopItem = ({ item }: ShopItemProps) => {
   const theme = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
+  const dispatch = useAppDispatch();
   const [isLiked, setIsLiked] = useState(false);
-  const handlePress = () => {
+
+  const handlePressHeart = () => {
     setIsLiked(prevState => !prevState);
+  };
+
+  const handleAddToBasket = () => {
+    dispatch(
+      addItemToBasket({
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        quantity: 1,
+      }),
+    );
   };
 
   return (
     <>
       <View style={styles.itemContainer}>
-        <Image source={{ uri: item.image }} style={styles.image} />
+        <Image source={{ uri: item?.images[0] }} style={styles.image} />
         <View style={styles.contentContainer}>
           <View style={styles.titleHeart}>
             <View style={styles.details}>
@@ -22,7 +42,7 @@ export const ShopItem = ({ item }) => {
                 {item.title}
               </Text>
             </View>
-            <Pressable onPress={handlePress}>
+            <Pressable onPress={handlePressHeart}>
               <Icon
                 source={isLiked ? 'cards-heart' : 'cards-heart-outline'}
                 size={24}
@@ -34,6 +54,7 @@ export const ShopItem = ({ item }) => {
             <Text style={styles.price}>£{item.price.toFixed(2)}</Text>
             <Button
               mode="elevated"
+              onPress={handleAddToBasket}
               textColor={theme.colors.themeBlue}
               contentStyle={styles.buyButtonStyles}
               icon={'basket-plus'}>
@@ -50,10 +71,10 @@ const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
   StyleSheet.create({
     itemContainer: {
       flexDirection: 'row',
-      marginBottom: 15,
+      marginBottom: spacing.md,
       borderBottomWidth: 1,
       borderBottomColor: colors.onBackground,
-      paddingBottom: 10,
+      paddingBottom: spacing.sm,
     },
     image: {
       width: 100,
@@ -70,7 +91,7 @@ const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
       marginBottom: spacing.xs,
     },
     price: {
-      fontSize: 20,
+      fontSize: fontSize.lg,
       color: 'green',
       fontWeight: '600',
     },
@@ -84,11 +105,11 @@ const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
       flexDirection: 'row-reverse',
     },
     titleHeart: {
-      flexDirection: 'row',
       flex: 1,
+      flexDirection: 'row',
     },
     contentContainer: {
-      flexDirection: 'column',
       flex: 1,
+      flexDirection: 'column',
     },
   });

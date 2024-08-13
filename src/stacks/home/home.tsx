@@ -11,7 +11,6 @@ import {
 import { useGetProductsQuery } from '@/api';
 import { AppTheme, useAppTheme } from '@/theme';
 import { ShopItem } from '@/components/shop-item';
-import { ActivityIndicator } from 'react-native-paper';
 
 export const HomeScreen = () => {
   const theme = useAppTheme();

@@ -5,7 +5,7 @@ export type RootStackParamList = MainAppNavigatorParamList &
 
 export type MainAppNavigatorParamList = {
   Shop: { initialRoute: boolean };
-  Basket: undefined;
+  BasketStack: undefined;
   AccountStack: undefined;
 };
 
@@ -14,6 +14,10 @@ export type AccountStackParamList = {
   PersonalDetails: undefined;
   Wallet: undefined;
   AppSettings: undefined;
+};
+
+export type BasketStackParamList = {
+  Basket: undefined;
 };
 
 // Account Stack Screen Types
@@ -38,3 +42,32 @@ export interface AccountDataState {
   contactInfo?: ContactInfo;
   address?: string;
 }
+
+export interface BasketItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+}
+
+export interface BasketState {
+  items: BasketItem[];
+}
+
+// API Interfaces and Types
+export interface Category {
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: Category;
+  images: string[];
+}
+
+export type Products = Product[];
