@@ -18,7 +18,7 @@ export const WalletScreen = () => {
   const MAX_NO_OF_CARDS = 6;
 
   const [showForm, setShowForm] = useState(false);
-
+  console.log(noOfCards);
   // Cool Animation :)
   const offsetY = useSharedValue(0);
   const formOpacity = useSharedValue(0);

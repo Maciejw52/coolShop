@@ -27,6 +27,7 @@ export const setupStore = (preloadedState?: RootState & PersistPartial) => {
           ignoredActions: ['persist/PERSIST'],
         },
       }),
+    preloadedState,
   });
 };
 

@@ -89,7 +89,7 @@ describe('Wallet Screen', () => {
 
     const preloadedState = {
       wallet: {
-        noOfCards: mockCards.length,
+        noOfCards: 2,
         secureWallet: mockCards,
       },
     };
