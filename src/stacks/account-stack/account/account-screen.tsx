@@ -16,13 +16,13 @@ export const AccountScreen = () => {
   const theme = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const disaptch = useAppDispatch();
-  const { fullName, address } = useAppSelector(state => state.accountData);
+  const { fullName } = useAppSelector(state => state.accountData);
   const { noOfCards } = useAppSelector(state => state.wallet);
   const navigation = useNavigation();
 
   // Temporary place to house snackbara
   const [visible, setVisible] = React.useState(false);
-  const onToggleSnackBar = () => setVisible(!visible);
+  const onToggleSnackBar = useCallback(() => setVisible(!visible), [visible]);
   const onDismissSnackBar = () => setVisible(false);
 
   const handleCTAction = useCallback(
@@ -37,7 +37,7 @@ export const AccountScreen = () => {
         purgeKeychainStorage();
       }
     },
-    [navigation],
+    [disaptch, navigation, onToggleSnackBar],
   );
 
   const isActionRequired = (option: AccountOption): boolean => {

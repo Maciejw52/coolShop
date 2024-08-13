@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { LinkPanel } from './link-panel';
-import { CombinedLightTheme } from '@/theme';
 
 const mockOnPress = jest.fn();
 const mockTitle = 'Mock Title';

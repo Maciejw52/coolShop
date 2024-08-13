@@ -13,6 +13,10 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.mock('@/utils/keychain-utils', () => ({
+  removeCardFromWalletKeychain: jest.fn(() => Promise.resolve()),
+}));
+
 describe('Wallet Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -116,7 +120,6 @@ describe('Wallet Screen', () => {
     const addButton = getByText('+ Add');
     fireEvent.press(addButton);
 
-    // Check if AddCreditCard component is rendered by checking the presence of its form fields
     expect(getByTestId('card-number-input')).toBeTruthy();
     expect(getByTestId('expiry-date-input')).toBeTruthy();
     expect(getByTestId('cvv-input')).toBeTruthy();

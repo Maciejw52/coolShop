@@ -58,6 +58,7 @@ export const CreditCard = ({ card }: CreditCardProps) => {
         <RightSwipeActionCard
           onPressSeeMore={handleRevealDetails}
           onPressDelete={handleRemoveCard}
+          testID={cardNumber}
         />
       )}
       friction={2}

@@ -3,7 +3,6 @@ import { renderWithProviders } from '@/utils/test-utils';
 import { PersonalDetailsScreen } from './personal-details';
 import { NavigationContainer } from '@react-navigation/native';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
-import { RootState } from '@/store/store.interface';
 
 const mockNavigate = jest.fn();
 const mockGoBack = jest.fn();

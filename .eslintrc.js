@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
   extends: '@react-native',
-  plugins: ['detox'],
+  rules: {
+    'react/no-unstable-nested-components': 0,
+    'react-native/no-inline-styles': 0,
+    '@typescript-eslint/no-shadow': 0,
+  },
 };

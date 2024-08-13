@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Keyboard, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import FormError from '@/components/form-field';
@@ -51,6 +51,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
       <Formik
         initialValues={initialFormValues}
         validationSchema={validationSchema}
+        enableReinitialize
         onSubmit={(values, { resetForm, setErrors }) => {
           submitNewCard(values, resetForm).then(() => {
             setErrors({});

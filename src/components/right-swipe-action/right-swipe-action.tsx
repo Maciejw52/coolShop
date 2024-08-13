@@ -1,15 +1,18 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useMemo } from 'react';
 import { AppTheme, useAppTheme } from '@/theme';
 import { Icon } from 'react-native-paper';
 
+interface RightActionCardProps extends React.ComponentProps<typeof View> {
+  onPressSeeMore: () => void;
+  onPressDelete: () => void;
+}
+
 export const RightSwipeActionCard = ({
   onPressSeeMore,
   onPressDelete,
-}: {
-  onPressSeeMore: () => void;
-  onPressDelete: () => void;
-}) => {
+  testID,
+}: RightActionCardProps) => {
   const theme = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
@@ -17,6 +20,7 @@ export const RightSwipeActionCard = ({
       <TouchableOpacity
         onPress={onPressSeeMore}
         accessibilityLabel="View Card Details"
+        testID={`view-card-details-${testID}`}
         activeOpacity={0.7}
         style={styles.swipedButton}>
         <Icon source="eye" size={32} color={theme.colors.background} />
@@ -24,6 +28,7 @@ export const RightSwipeActionCard = ({
       <TouchableOpacity
         onPress={onPressDelete}
         accessibilityLabel="Delete Card"
+        testID={`delete-card-${testID}`}
         activeOpacity={0.7}
         style={[styles.swipedButton, styles.swipedButtonError]}>
         <Icon source="delete" size={32} color={theme.colors.onError} />

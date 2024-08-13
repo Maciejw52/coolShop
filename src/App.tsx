@@ -10,12 +10,27 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
 import { RootStackParamList } from './app.interface';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useAppSelector } from './hooks';
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  let theme = isDarkMode ? CombinedDarkTheme : CombinedLightTheme;
+const StatelessApp = () => {
+  const { currentTheme } = useAppSelector(state => state.utils);
 
-  const barStyle = isDarkMode ? 'light-content' : 'dark-content';
+  const colorScheme = useColorScheme() === 'dark';
+
+  let theme;
+  switch (currentTheme) {
+    case 'dark':
+      theme = CombinedDarkTheme;
+      break;
+    case 'light':
+      theme = CombinedLightTheme;
+      break;
+    case 'default':
+    default:
+      theme = colorScheme ? CombinedDarkTheme : CombinedLightTheme;
+      break;
+  }
+  const barStyle = theme.dark ? 'light-content' : 'dark-content';
 
   const NavigationTheme = {
     ...theme,
@@ -31,23 +46,27 @@ const App = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <PaperProvider theme={theme}>
-            <NavigationContainer theme={NavigationTheme}>
-              <StatusBar
-                barStyle={barStyle}
-                backgroundColor={theme.colors.background}
-              />
-              <MainAppNavigator />
-            </NavigationContainer>
-          </PaperProvider>
-        </PersistGate>
-      </Provider>
-    </GestureHandlerRootView>
+    <PersistGate loading={null} persistor={persistor}>
+      <PaperProvider theme={theme}>
+        <NavigationContainer theme={NavigationTheme}>
+          <StatusBar
+            barStyle={barStyle}
+            backgroundColor={theme.colors.background}
+          />
+          <MainAppNavigator />
+        </NavigationContainer>
+      </PaperProvider>
+    </PersistGate>
   );
 };
+
+export const App = () => (
+  <GestureHandlerRootView style={{ flex: 1 }}>
+    <Provider store={store}>
+      <StatelessApp />
+    </Provider>
+  </GestureHandlerRootView>
+);
 
 export default App;
 

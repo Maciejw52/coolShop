@@ -4,7 +4,7 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|react-navigation|react-native-reanimated|react-native-keychain|@react-navigation/.*|@react-native(-community)?|react-native-vector-icons|react-redux)/)',
+    'node_modules/(?!((jest-)?react-native|react-navigation|react-native-reanimated|react-native-gesture-handler|react-native-keychain|@react-navigation/.*|@react-native(-community)?|react-native-vector-icons|react-redux)/)',
   ],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   modulePathIgnorePatterns: ['<rootDir>/e2e/'],
