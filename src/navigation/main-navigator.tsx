@@ -17,9 +17,9 @@ const MainAppNavigator = () => {
   return (
     <Tab.Navigator
       theme={theme}
-      activeColor={theme.colors.secondary}
+      activeColor={theme.colors.themeBlue}
       inactiveColor={theme.colors.onBackground}
-      activeIndicatorStyle={{ backgroundColor: theme.colors.onSecondary }}
+      activeIndicatorStyle={{ backgroundColor: theme.colors.surface }}
       barStyle={styles.tabBar}
       sceneAnimationEnabled
       initialRouteName="Shop"
