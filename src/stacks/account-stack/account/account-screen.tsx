@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import LinkPanel from '@/components/link-panel';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -14,7 +14,7 @@ import { purgeKeychainStorage } from '@/utils/keychain-utils';
 
 export const AccountScreen = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const disaptch = useAppDispatch();
   const { fullName, address } = useAppSelector(state => state.accountData);
   const { noOfCards } = useAppSelector(state => state.wallet);
@@ -22,9 +22,7 @@ export const AccountScreen = () => {
 
   // Temporary place to house snackbara
   const [visible, setVisible] = React.useState(false);
-
   const onToggleSnackBar = () => setVisible(!visible);
-
   const onDismissSnackBar = () => setVisible(false);
 
   const handleCTAction = useCallback(
@@ -32,11 +30,11 @@ export const AccountScreen = () => {
       const { type, destination } = option.action;
       if (type === 'navigate') {
         navigation.navigate(destination as never);
-      } else if (type === 'state-change') {
+      } else {
+        onToggleSnackBar();
         disaptch(clearAccountData());
         disaptch(clearWallet());
         purgeKeychainStorage();
-        onToggleSnackBar();
       }
     },
     [navigation],
@@ -45,15 +43,13 @@ export const AccountScreen = () => {
   const isActionRequired = (option: AccountOption): boolean => {
     switch (option.title) {
       case 'Manage personal details':
-        return !fullName || !address;
+        return !fullName;
       case 'Wallet':
         return noOfCards === 0;
       default:
         return false;
     }
   };
-
-  console.log('asd');
 
   return (
     <>

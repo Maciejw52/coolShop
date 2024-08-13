@@ -132,4 +132,10 @@ export const CombinedDarkTheme = {
   ...customThemeProperties,
 };
 
+export const cardColours = [
+  CombinedDarkTheme.colors.primaryContainer,
+  CombinedDarkTheme.colors.secondaryContainer,
+  CombinedDarkTheme.colors.tertiaryContainer,
+];
+
 export type AppTheme = typeof CombinedLightTheme;

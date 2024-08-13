@@ -34,7 +34,7 @@ export const Navbar = ({ title, mode }: NavbarProps) => {
     <Appbar.Header mode={mode || 'small'} theme={theme}>
       {!isInitialRoute && navigation.canGoBack() && (
         <Appbar.BackAction
-          testID={`NAVBAR.BACK_BTN`}
+          testID="NAVBAR.BACK_BTN"
           onPress={handleBackButtonPress}
         />
       )}

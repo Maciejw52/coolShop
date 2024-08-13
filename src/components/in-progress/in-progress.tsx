@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { useAppTheme } from '@/theme';
@@ -7,7 +7,7 @@ import { Icon } from 'react-native-paper';
 
 export const ScreenInProgress = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
 
   return (
     <View style={styles.container}>

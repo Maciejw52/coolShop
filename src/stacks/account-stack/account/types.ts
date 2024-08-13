@@ -8,7 +8,7 @@ export type AccountOption = {
 export type AccountActionOption =
   | {
       type: 'navigate';
-      destination: 'Account' | 'PersonalDetails' | 'Cards' | 'AppSettings';
+      destination: 'Account' | 'PersonalDetails' | 'Wallet' | 'AppSettings';
     }
   | {
       type: 'state-change';

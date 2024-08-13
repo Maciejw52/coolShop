@@ -1,9 +1,18 @@
+import React, { useMemo, useRef } from 'react';
+
 import { AppTheme, useAppTheme } from '@/theme';
-import { getCardFromWalletKeychain } from '@/utils/keychain-utils';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  getCardFromWalletKeychain,
+  removeCardFromWalletKeychain,
+} from '@/utils/keychain-utils';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Swipeable, {
+  SwipeableMethods,
+} from 'react-native-gesture-handler/ReanimatedSwipeable';
 import { Icon, Text } from 'react-native-paper';
+import { RightSwipeActionCard } from '../right-swipe-action';
+import { useAppDispatch } from '@/hooks';
+import { removeCard } from '@/store/slices/wallet-slice';
 
 interface CreditCardProps {
   card: {
@@ -16,35 +25,58 @@ interface CreditCardProps {
 export const CreditCard = ({ card }: CreditCardProps) => {
   const { cardId, cardNumber, color } = card;
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
+  const dispatch = useAppDispatch();
 
   const handleRevealDetails = async () => {
     const temp = await getCardFromWalletKeychain(cardId);
     console.log(temp);
   };
 
+  const handleRemoveCard = async () => {
+    await removeCardFromWalletKeychain(cardId).then(() => {
+      dispatch(removeCard(cardId));
+    });
+  };
+
+  const swipeableRow = useRef<SwipeableMethods>(null);
+
   return (
-    <TouchableOpacity
-      testID={`credit-card-${cardNumber}`}
-      activeOpacity={0.8}
-      onPress={handleRevealDetails}
-      style={[styles.cardContainer, { backgroundColor: color }]}>
-      <View style={styles.cardSpacing}>
-        <Text style={styles.cardTitle}>COOL CREDIT :)</Text>
-        <Icon
-          size={23}
-          color={theme.colors.white}
-          source={'contactless-payment'}
+    <Swipeable
+      ref={swipeableRow}
+      renderRightActions={() => (
+        <RightSwipeActionCard
+          onPressSeeMore={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+          onPressDelete={handleRemoveCard}
         />
-      </View>
-      <View>
-        <Text style={styles.cardNumber}>{cardNumber}</Text>
-      </View>
-      <View style={styles.cardSpacing}>
-        <Text style={styles.cardExpiry}>{'**/**'}</Text>
-        <Text style={styles.cardCvv}>CVV: {'***'}</Text>
-      </View>
-    </TouchableOpacity>
+      )}
+      friction={2}
+      overshootLeft={false}
+      rightThreshold={25}>
+      <TouchableOpacity
+        testID={`credit-card-${cardNumber}`}
+        activeOpacity={1}
+        onPress={handleRevealDetails}
+        style={[styles.cardContainer, { backgroundColor: color }]}>
+        <View style={styles.cardSpacing}>
+          <Text style={styles.cardTitle}>COOL CREDIT :)</Text>
+          <Icon
+            size={23}
+            color={theme.colors.white}
+            source={'contactless-payment'}
+          />
+        </View>
+        <View>
+          <Text style={styles.cardNumber}>{cardNumber}</Text>
+        </View>
+        <View style={styles.cardSpacing}>
+          <Text style={styles.cardExpiry}>{'**/**'}</Text>
+          <Text style={styles.cardCvv}>CVV: {'***'}</Text>
+        </View>
+      </TouchableOpacity>
+    </Swipeable>
   );
 };
 

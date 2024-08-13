@@ -6,6 +6,7 @@ import { setupStore } from '@/store';
 import { AppStore, RootState } from '@/store/store.interface';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { PaperProvider } from 'react-native-paper';
+import { CombinedLightTheme } from '@/theme';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState> & PersistPartial;
@@ -23,7 +24,7 @@ export function renderWithProviders(
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <PaperProvider>
+    <PaperProvider theme={CombinedLightTheme}>
       <Provider store={store}>{children}</Provider>
     </PaperProvider>
   );

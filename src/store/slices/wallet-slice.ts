@@ -9,13 +9,11 @@ interface SecureCard {
 interface WalletState {
   noOfCards: number;
   secureWallet: SecureCard[];
-  color?: string;
 }
 
 const initialState: WalletState = {
   noOfCards: 0,
   secureWallet: [],
-  color: undefined,
 };
 
 const walletSlice = createSlice({

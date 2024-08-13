@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import FormError from '@/components/form-field';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const PersonalDetailsScreen = () => {
   const theme = useAppTheme();
-  const styles = makeStyles(theme);
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const dispatch = useAppDispatch();
   const accountData = useAppSelector(state => state.accountData);
 
@@ -33,7 +33,7 @@ export const PersonalDetailsScreen = () => {
   };
 
   return (
-    <View style={styles.pageContainer}>
+    <View testID="personal-details-screen" style={styles.pageContainer}>
       <Text>
         We need the following details so we know where to send your order.
       </Text>
@@ -57,7 +57,14 @@ export const PersonalDetailsScreen = () => {
             }),
           );
         }}>
-        {({ handleChange, handleBlur, values, errors, handleSubmit }) => (
+        {({
+          handleChange,
+          handleBlur,
+          values,
+          errors,
+          handleSubmit,
+          resetForm,
+        }) => (
           <View style={styles.container}>
             <View style={styles.inputContainer}>
               <View>
