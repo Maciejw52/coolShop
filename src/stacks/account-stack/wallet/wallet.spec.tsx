@@ -66,12 +66,14 @@ describe('Wallet Screen', () => {
   it('should not render the "Add" button when the maximum number of cards is reached', () => {
     const preloadedState = {
       wallet: {
-        noOfCards: 4,
+        noOfCards: 6,
         secureWallet: [
           { cardId: '1', cardNumber: '**** 1111' },
           { cardId: '2', cardNumber: '**** 2222' },
           { cardId: '3', cardNumber: '**** 3333' },
           { cardId: '4', cardNumber: '**** 4444' },
+          { cardId: '5', cardNumber: '**** 5555' },
+          { cardId: '6', cardNumber: '**** 6666' },
         ],
       },
     };

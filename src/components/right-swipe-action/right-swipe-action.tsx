@@ -18,13 +18,7 @@ export const RightSwipeActionCard = ({
         onPress={onPressSeeMore}
         accessibilityLabel="View Card Details"
         activeOpacity={0.7}
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 60,
-          flex: 1,
-          backgroundColor: theme.colors.onBackground,
-        }}>
+        style={styles.swipedButton}>
         <Icon source="eye" size={32} color={theme.colors.background} />
       </TouchableOpacity>
       <TouchableOpacity

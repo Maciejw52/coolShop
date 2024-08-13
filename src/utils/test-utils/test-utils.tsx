@@ -22,7 +22,6 @@ export function renderWithProviders(
     store = setupStore(preloadedState),
     ...renderOptions
   } = extendedRenderOptions;
-  console.log(preloadedState);
   const Wrapper = ({ children }: PropsWithChildren) => (
     <PaperProvider theme={CombinedLightTheme}>
       <Provider store={store}>{children}</Provider>
