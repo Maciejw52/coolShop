@@ -6,6 +6,7 @@ import { RootState } from './store.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import type { PersistPartial } from 'redux-persist/es/persistReducer';
+import { productsApi } from '@/api';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 };
 
 export const rootReducer = combineReducers({
+  [productsApi.reducerPath]: productsApi.reducer,
   accountData: accountDataReducer,
   wallet: walletReducer,
   utils: utilsReducer,
@@ -30,7 +32,7 @@ export const setupStore = (
         serializableCheck: {
           ignoredActions: ['persist/PERSIST'],
         },
-      }),
+      }).concat(productsApi.middleware),
     preloadedState,
   });
 };

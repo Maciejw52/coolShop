@@ -1,8 +1,4 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
-
-# Getting Started
-
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# Cool Store README
 
 ## Step 1: Start the Metro Server
 
@@ -42,38 +38,96 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Unit Testing
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+Simply run:
 
-## Step 3: Modifying your App
+```bash
+   yarn test
+```
 
-Now that you have successfully run the app, let's modify it.
+## End-to-end Testing (Detox)
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+The e2e testing framework we use is Detox from wix, with plenty of support and years on the market it is a prime choice for e2e and automated testing in coolStore, 250,000 downloads on npm per week, easy setup etc.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+The setup below may not be necessary depending on your device configurations. For guidence on how to set up your system environment please head over to:
 
-## Congratulations! :tada:
+[`Detox Documentation`](https://wix.github.io/Detox/docs/19.x/introduction/getting-started).
 
-You've successfully run and modified your React Native App. :partying_face:
+### Setup
 
-### Now what?
+1. **Edit the .detoxrc.js file**
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+   In order for detox to choose the correct android emulator in the tests, make sure that your .detoxrc.js avdName matches the one in Android Studio.
 
-# Troubleshooting
+   ```bash
+   devices: {
+    ...
+    emulator: {
+      type: 'android.emulator',
+      device: {
+        avdName: 'YOUR_AVD_NAME_HERE',
+      },
+    },
+   },
+   ```
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+   To check if a specific Android virtual device is installed locally, run:
 
-# Learn More
+   ```bash
+   emulator -list-avds
+   ```
 
-To learn more about React Native, take a look at the following resources:
+2. **Run Test APK app generation**
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+   Within the root dir of the project, run one of the following two commands to generate your test apk, it can either be a debug or a release configuration:
+
+   **Android**
+
+   ```bash
+      # Debug apk
+      yarn android:build-debug
+      # Release apk
+      yarn android:build-debug
+   ```
+
+   **IOS**
+
+   ```bash
+      # Debug ipa
+      yarn ios:build-debug
+      # Release ipa
+      yarn ios:build-release
+   ```
+
+### Testing - Debug
+
+1. **Run Metro in testing mode**
+
+   Since this is a debug configuration, you need to have React Native packager running in parallel before you start Detox tests.
+
+   ```bash
+   yarn start
+   ```
+
+2. **Run Detox debug testing**
+
+   ```bash
+      # Android
+      yarn android:e2e-debug
+      # IOS
+      yarn ios:e2e-debug
+   ```
+
+### Testing - Release
+
+1. **Run Detox Release testing**
+
+   No need to run a metro server for these. BUT, remember to first build your release apk/ipa
+
+   ```bash
+      # Android
+      yarn android:e2e-release
+      # IOS
+      yarn ios:e2e-release
+   ```
