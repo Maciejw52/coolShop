@@ -30,6 +30,7 @@ export const AppSettingsScreen = () => {
           </Text>
           <RadioButton
             value={possibleTheme}
+            testID={`${possibleTheme}-radio-button`}
             status={currentTheme === possibleTheme ? 'checked' : 'unchecked'}
             onPress={() => handleThemeChange(possibleTheme)}
           />

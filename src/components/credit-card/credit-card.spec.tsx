@@ -1,8 +1,7 @@
 import React from 'react';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 import { CreditCard } from './credit-card';
 import { fireEvent, waitFor, act } from '@testing-library/react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { removeCardFromWalletKeychain } from '@/utils/keychain-utils';
 
 jest.mock('@/utils/keychain-utils', () => ({
@@ -30,11 +29,7 @@ const mockCard = {
 
 describe('CreditCard Component', () => {
   const renderComponent = () =>
-    renderWithProviders(
-      <NavigationContainer>
-        <CreditCard card={mockCard} />
-      </NavigationContainer>,
-    );
+    renderWithProvidersInEnv(<CreditCard card={mockCard} />);
 
   beforeEach(() => {
     jest.clearAllMocks();

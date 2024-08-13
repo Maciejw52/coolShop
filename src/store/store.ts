@@ -20,7 +20,9 @@ export const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const setupStore = (preloadedState?: RootState & PersistPartial) => {
+export const setupStore = (
+  preloadedState?: (RootState & PersistPartial) | undefined,
+) => {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>

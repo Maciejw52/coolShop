@@ -1,7 +1,7 @@
 import { AccountDataState } from '@/app.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: AccountDataState = {
+export const accountDataInitialState: AccountDataState = {
   fullName: undefined,
   contactInfo: {
     email: undefined,
@@ -12,7 +12,7 @@ const initialState: AccountDataState = {
 
 export const accountDataSlice = createSlice({
   name: 'accountData',
-  initialState,
+  initialState: accountDataInitialState,
   reducers: {
     updateAccount: (
       state,
@@ -21,7 +21,7 @@ export const accountDataSlice = createSlice({
       return { ...state, ...action.payload };
     },
     clearAccountData: state => {
-      Object.assign(state, initialState);
+      Object.assign(state, accountDataInitialState);
     },
   },
 });

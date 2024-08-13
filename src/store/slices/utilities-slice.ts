@@ -6,13 +6,13 @@ interface utilsSliceState {
   currentTheme: ThemeState;
 }
 
-const initialState: utilsSliceState = {
+export const utilsInitialState: utilsSliceState = {
   currentTheme: 'default',
 };
 
 const utilsSlice = createSlice({
   name: 'utils',
-  initialState,
+  initialState: utilsInitialState,
   reducers: {
     setTheme(state, action: PayloadAction<ThemeState>) {
       state.currentTheme = action.payload;

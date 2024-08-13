@@ -17,3 +17,12 @@ jest.mock('react-native-keychain', () => ({
   getGenericPassword: jest.fn(() => Promise.resolve('mockPass')),
   resetGenericPassword: jest.fn(() => Promise.resolve(null)),
 }));
+
+global.console = {
+  ...console,
+  // log: jest.fn(),
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  // error: jest.fn(),
+};

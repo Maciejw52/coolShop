@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 import { AddCreditCard } from './add-credit-card';
-import { NavigationContainer } from '@react-navigation/native';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
 jest.mock('react-native-uuid', () => ({
@@ -16,12 +15,9 @@ const mockOnCardSaved = jest.fn();
 
 describe('AddCreditCard Component', () => {
   const renderPage = (preloadedState?: any) =>
-    renderWithProviders(
-      <NavigationContainer>
-        <AddCreditCard onCardSaved={mockOnCardSaved} />
-      </NavigationContainer>,
-      { preloadedState },
-    );
+    renderWithProvidersInEnv(<AddCreditCard onCardSaved={mockOnCardSaved} />, {
+      preloadedState,
+    });
 
   beforeEach(() => {
     jest.clearAllMocks();

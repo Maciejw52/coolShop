@@ -7,25 +7,48 @@ import { AppStore, RootState } from '@/store/store.interface';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { PaperProvider } from 'react-native-paper';
 import { CombinedLightTheme } from '@/theme';
+import { NavigationContainer } from '@react-navigation/native';
+import { accountDataInitialState } from '@/store/slices/account-data-slice';
+import { utilsInitialState } from '@/store/slices/utilities-slice';
+import { walletInitialState } from '@/store/slices/wallet-slice';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: Partial<RootState> & PersistPartial;
+  preloadedState?: (RootState & PersistPartial) | undefined;
   store?: AppStore;
 }
 
-export function renderWithProviders(
+export function renderWithProvidersInEnv(
   ui: React.ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
+  withoutNavigation?: boolean,
 ) {
   const {
-    preloadedState = {},
+    preloadedState = {
+      accountData: accountDataInitialState,
+      wallet: walletInitialState,
+      utils: utilsInitialState,
+      _persist: {
+        version: 0,
+        rehydrated: true,
+      },
+    },
     store = setupStore(preloadedState),
     ...renderOptions
   } = extendedRenderOptions;
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <PaperProvider theme={CombinedLightTheme}>
-      <Provider store={store}>{children}</Provider>
-    </PaperProvider>
+    <>
+      {withoutNavigation ? (
+        <PaperProvider theme={CombinedLightTheme}>
+          <Provider store={store}>{children}</Provider>
+        </PaperProvider>
+      ) : (
+        <NavigationContainer>
+          <PaperProvider theme={CombinedLightTheme}>
+            <Provider store={store}>{children}</Provider>
+          </PaperProvider>
+        </NavigationContainer>
+      )}
+    </>
   );
 
   return {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 import { WalletScreen } from './wallet';
-import { NavigationContainer } from '@react-navigation/native';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
 const mockNavigate = jest.fn();
@@ -23,12 +22,7 @@ describe('Wallet Screen', () => {
   });
 
   const renderPage = (preloadedState?: any) =>
-    renderWithProviders(
-      <NavigationContainer>
-        <WalletScreen />
-      </NavigationContainer>,
-      { preloadedState },
-    );
+    renderWithProvidersInEnv(<WalletScreen />, { preloadedState });
 
   it('should render the wallet screen with the "My Cards" heading', () => {
     const { getByText } = renderPage();
