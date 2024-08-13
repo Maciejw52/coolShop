@@ -15,7 +15,7 @@ export const WalletScreen = () => {
   const theme = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const { noOfCards, secureWallet } = useAppSelector(state => state.wallet);
-  const MAX_NO_OF_CARDS = 4;
+  const MAX_NO_OF_CARDS = 6;
 
   const [showForm, setShowForm] = useState(false);
 

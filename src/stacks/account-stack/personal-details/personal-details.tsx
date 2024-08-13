@@ -57,7 +57,14 @@ export const PersonalDetailsScreen = () => {
             }),
           );
         }}>
-        {({ handleChange, handleBlur, values, errors, handleSubmit }) => (
+        {({
+          handleChange,
+          handleBlur,
+          values,
+          errors,
+          handleSubmit,
+          resetForm,
+        }) => (
           <View style={styles.container}>
             <View style={styles.inputContainer}>
               <View>

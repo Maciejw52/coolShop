@@ -56,8 +56,7 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
           values,
           errors,
           handleSubmit,
-          setValues,
-          setErrors,
+          resetForm,
         }) => (
           <View style={styles.form}>
             <TextInput
@@ -106,12 +105,8 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 mode="contained"
                 onPress={() => {
                   handleSubmit();
-
                   onCardSaved();
-                  setTimeout(() => {
-                    setValues(initialFormValues);
-                    setErrors({});
-                  }, 2000);
+                  resetForm();
                 }}>
                 Save Card
               </Button>
