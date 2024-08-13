@@ -102,6 +102,6 @@ const makeStyles = ({ spacing, fontSize }: AppTheme) =>
     cardContainer: {
       alignItems: 'center',
       gap: spacing.sm,
-      paddingBottom: spacing.lg,
+      paddingBottom: 80, // Need to account for the Tab bar
     },
   });
