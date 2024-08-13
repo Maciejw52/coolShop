@@ -138,4 +138,7 @@ export const cardColours = [
   CombinedDarkTheme.colors.tertiaryContainer,
 ];
 
+export const themesArray = ['default', 'dark', 'light'] as const;
+export type possibleThemeType = typeof themesArray;
+
 export type AppTheme = typeof CombinedLightTheme;

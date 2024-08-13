@@ -11,14 +11,14 @@ interface WalletState {
   secureWallet: SecureCard[];
 }
 
-const initialState: WalletState = {
+export const walletInitialState: WalletState = {
   noOfCards: 0,
   secureWallet: [],
 };
 
 const walletSlice = createSlice({
   name: 'wallet',
-  initialState,
+  initialState: walletInitialState,
   reducers: {
     addCard: (state, action: PayloadAction<SecureCard>) => {
       // Need to add this card into the keychain
@@ -33,7 +33,7 @@ const walletSlice = createSlice({
       state.noOfCards = state.noOfCards - 1;
     },
     clearWallet: state => {
-      Object.assign(state, initialState);
+      Object.assign(state, walletInitialState);
     },
   },
 });

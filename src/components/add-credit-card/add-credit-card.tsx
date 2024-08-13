@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
@@ -16,24 +16,28 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const dispatch = useAppDispatch();
 
-  const submitNewCard = async (values: {
-    cardNumber: string;
-    expiryDate: string;
-    cvv: string;
-  }) => {
+  const submitNewCard = async (
+    values: {
+      cardNumber: string;
+      expiryDate: string;
+      cvv: string;
+    },
+    resetForm: () => void,
+  ) => {
     const generatedId = uuid.v4().toString();
     await saveCardTWalletKeychain({
-      ...{ cardId: generatedId },
+      cardId: generatedId,
       ...values,
-    } as never).then(() => {
-      dispatch(
-        addCard({
-          cardId: generatedId,
-          cardNumber: `****  ${values.cardNumber.slice(-4)}`,
-          color: cardColours[Math.floor(Math.random() * cardColours.length)],
-        }),
-      );
-    });
+    } as never);
+    dispatch(
+      addCard({
+        cardId: generatedId,
+        cardNumber: `**** ${values.cardNumber.slice(-4)}`,
+        color: cardColours[Math.floor(Math.random() * cardColours.length)],
+      }),
+    );
+    resetForm();
+    onCardSaved();
   };
 
   const initialFormValues = {
@@ -47,17 +51,13 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
       <Formik
         initialValues={initialFormValues}
         validationSchema={validationSchema}
-        onSubmit={values => {
-          submitNewCard(values);
+        enableReinitialize
+        onSubmit={(values, { resetForm, setErrors }) => {
+          submitNewCard(values, resetForm).then(() => {
+            setErrors({});
+          });
         }}>
-        {({
-          handleChange,
-          handleBlur,
-          values,
-          errors,
-          handleSubmit,
-          resetForm,
-        }) => (
+        {({ handleChange, handleBlur, values, errors, handleSubmit }) => (
           <View style={styles.form}>
             <TextInput
               mode="outlined"
@@ -105,8 +105,6 @@ export const AddCreditCard = ({ onCardSaved }: { onCardSaved: () => void }) => {
                 mode="contained"
                 onPress={() => {
                   handleSubmit();
-                  onCardSaved();
-                  resetForm();
                 }}>
                 Save Card
               </Button>

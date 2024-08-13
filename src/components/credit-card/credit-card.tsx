@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { AppTheme, useAppTheme } from '@/theme';
 import {
@@ -28,9 +28,19 @@ export const CreditCard = ({ card }: CreditCardProps) => {
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const dispatch = useAppDispatch();
 
+  const [revealDetails, setRevealDetails] = useState<{
+    cardNumber?: string;
+    cvv?: string;
+    expiryDate?: string;
+  } | null>(null);
+
   const handleRevealDetails = async () => {
-    const temp = await getCardFromWalletKeychain(cardId);
-    console.log(temp);
+    try {
+      const details = await getCardFromWalletKeychain(cardId);
+      setRevealDetails(details);
+    } catch (error) {
+      console.log('Failed to get card details:', error);
+    }
   };
 
   const handleRemoveCard = async () => {
@@ -46,10 +56,9 @@ export const CreditCard = ({ card }: CreditCardProps) => {
       ref={swipeableRow}
       renderRightActions={() => (
         <RightSwipeActionCard
-          onPressSeeMore={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          onPressSeeMore={handleRevealDetails}
           onPressDelete={handleRemoveCard}
+          testID={cardNumber}
         />
       )}
       friction={2}
@@ -58,7 +67,6 @@ export const CreditCard = ({ card }: CreditCardProps) => {
       <TouchableOpacity
         testID={`credit-card-${cardNumber}`}
         activeOpacity={1}
-        onPress={handleRevealDetails}
         style={[styles.cardContainer, { backgroundColor: color }]}>
         <View style={styles.cardSpacing}>
           <Text style={styles.cardTitle}>COOL CREDIT :)</Text>
@@ -69,11 +77,18 @@ export const CreditCard = ({ card }: CreditCardProps) => {
           />
         </View>
         <View>
-          <Text style={styles.cardNumber}>{cardNumber}</Text>
+          <Text style={styles.cardNumber}>
+            {revealDetails?.cardNumber?.replace(/(.{4})/g, '$1 ').trim() ||
+              cardNumber}
+          </Text>
         </View>
         <View style={styles.cardSpacing}>
-          <Text style={styles.cardExpiry}>{'**/**'}</Text>
-          <Text style={styles.cardCvv}>CVV: {'***'}</Text>
+          <Text style={styles.cardExpiry}>
+            {revealDetails?.expiryDate || '**/**'}
+          </Text>
+          <Text style={styles.cardCvv}>
+            {revealDetails?.cvv ? `CVV: ${revealDetails.cvv}` : 'CVV: ***'}
+          </Text>
         </View>
       </TouchableOpacity>
     </Swipeable>
@@ -97,7 +112,7 @@ const makeStyles = ({ spacing, fontSize, colors }: AppTheme) =>
     cardNumber: {
       fontSize: fontSize.lg,
       fontWeight: 'bold',
-      letterSpacing: 3,
+      letterSpacing: 1.5,
       color: colors.white,
     },
     cardExpiry: {

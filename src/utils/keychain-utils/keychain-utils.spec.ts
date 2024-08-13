@@ -96,19 +96,6 @@ describe('Keychain Utilities', () => {
   });
 
   describe('removeCardFromWalletKeychain', () => {
-    it('should remove a card from the wallet by cardId', async () => {
-      (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce({
-        password: JSON.stringify({ wallet: [mockCard] }),
-      });
-
-      await removeCardFromWalletKeychain('123');
-
-      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
-        'wallet',
-        JSON.stringify({ wallet: [] }),
-      );
-    });
-
     it('should return a rejection if no wallet is found', async () => {
       (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce(null);
 

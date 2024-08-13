@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 import { AccountScreen } from './account-screen';
-import { NavigationContainer } from '@react-navigation/native';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
 const mockNavigate = jest.fn();
@@ -13,18 +12,13 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-const renderPage = (preloadedState?: any) =>
-  renderWithProviders(
-    <NavigationContainer>
-      <AccountScreen />
-    </NavigationContainer>,
-    { preloadedState },
-  );
-
 describe('Account Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
+  const renderPage = (preloadedState?: any) =>
+    renderWithProvidersInEnv(<AccountScreen />, { preloadedState });
 
   it('should render Account Screen and display account options upon navigation', async () => {
     const { findByTestId, getByText } = renderPage();

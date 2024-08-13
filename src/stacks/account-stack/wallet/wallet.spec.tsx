@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 import { WalletScreen } from './wallet';
-import { NavigationContainer } from '@react-navigation/native';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
 const mockNavigate = jest.fn();
@@ -13,18 +12,17 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.mock('@/utils/keychain-utils', () => ({
+  removeCardFromWalletKeychain: jest.fn(() => Promise.resolve()),
+}));
+
 describe('Wallet Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   const renderPage = (preloadedState?: any) =>
-    renderWithProviders(
-      <NavigationContainer>
-        <WalletScreen />
-      </NavigationContainer>,
-      { preloadedState },
-    );
+    renderWithProvidersInEnv(<WalletScreen />, { preloadedState });
 
   it('should render the wallet screen with the "My Cards" heading', () => {
     const { getByText } = renderPage();
@@ -66,12 +64,14 @@ describe('Wallet Screen', () => {
   it('should not render the "Add" button when the maximum number of cards is reached', () => {
     const preloadedState = {
       wallet: {
-        noOfCards: 4,
+        noOfCards: 6,
         secureWallet: [
           { cardId: '1', cardNumber: '**** 1111' },
           { cardId: '2', cardNumber: '**** 2222' },
           { cardId: '3', cardNumber: '**** 3333' },
           { cardId: '4', cardNumber: '**** 4444' },
+          { cardId: '5', cardNumber: '**** 5555' },
+          { cardId: '6', cardNumber: '**** 6666' },
         ],
       },
     };
@@ -89,7 +89,7 @@ describe('Wallet Screen', () => {
 
     const preloadedState = {
       wallet: {
-        noOfCards: mockCards.length,
+        noOfCards: 2,
         secureWallet: mockCards,
       },
     };
@@ -114,7 +114,6 @@ describe('Wallet Screen', () => {
     const addButton = getByText('+ Add');
     fireEvent.press(addButton);
 
-    // Check if AddCreditCard component is rendered by checking the presence of its form fields
     expect(getByTestId('card-number-input')).toBeTruthy();
     expect(getByTestId('expiry-date-input')).toBeTruthy();
     expect(getByTestId('cvv-input')).toBeTruthy();

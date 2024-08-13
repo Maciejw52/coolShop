@@ -1,16 +1,18 @@
 import React from 'react';
 
 import { MainAppNavigatorParamList } from '@/app.interface';
-import { useAppTheme } from '@/theme';
+import { AppTheme, useAppTheme } from '@/theme';
 import BasketScreen from '@/stacks/basket';
 import HomeScreen from '@/stacks/home';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import AccountStackScreen from './account-navigator';
+import { StyleSheet } from 'react-native';
 
 const Tab = createMaterialBottomTabNavigator<MainAppNavigatorParamList>();
 
 const MainAppNavigator = () => {
   const theme = useAppTheme();
+  const styles = makeStyles(theme);
 
   return (
     <Tab.Navigator
@@ -18,11 +20,7 @@ const MainAppNavigator = () => {
       activeColor={theme.colors.secondary}
       inactiveColor={theme.colors.onBackground}
       activeIndicatorStyle={{ backgroundColor: theme.colors.onSecondary }}
-      barStyle={{
-        backgroundColor: theme.colors.elevation.level2,
-        borderTopColor: theme.colors.backdrop,
-        borderTopWidth: 1,
-      }}
+      barStyle={styles.tabBar}
       sceneAnimationEnabled
       initialRouteName="Shop"
       backBehavior="initialRoute">
@@ -57,5 +55,14 @@ const MainAppNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+const makeStyles = ({ colors }: AppTheme) =>
+  StyleSheet.create({
+    tabBar: {
+      backgroundColor: colors.elevation.level2,
+      borderTopColor: colors.backdrop,
+      borderTopWidth: 1,
+    },
+  });
 
 export default MainAppNavigator;
