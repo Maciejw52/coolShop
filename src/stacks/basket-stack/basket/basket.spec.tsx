@@ -1,16 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import { BasketScreen } from './basket';
-import { PaperProvider } from 'react-native-paper';
-import { CombinedDarkTheme } from '@/theme';
+import { renderWithProvidersInEnv } from '@/utils/test-utils';
 
-describe('Home', () => {
-  it('should have the screen in progress page', () => {
-    const { getByText } = render(
-      <PaperProvider theme={CombinedDarkTheme}>
-        <BasketScreen />
-      </PaperProvider>,
-    );
-    expect(getByText('Screen In Progress')).toBeTruthy();
+describe('Basket', () => {
+  it('should render the basket screen initially with it empty', () => {
+    const { getByText } = renderWithProvidersInEnv(<BasketScreen />);
+    expect(getByText('Your basket is empty')).toBeTruthy();
+    expect(getByText('Do Some Cool Shopping NOW!')).toBeTruthy();
   });
 });

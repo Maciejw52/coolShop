@@ -2,7 +2,6 @@ import React from 'react';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 import { AppSettingsScreen } from './app-settings';
 import { renderWithProvidersInEnv } from '@/utils/test-utils';
-import { themesArray } from '@/theme';
 
 describe('App Settings Screen', () => {
   beforeEach(() => {
@@ -13,12 +12,13 @@ describe('App Settings Screen', () => {
     renderWithProvidersInEnv(<AppSettingsScreen />, { preloadedState });
 
   it('should render App Settings with title and radio buttons', () => {
-    const { getByText, getAllByRole } = renderPage();
+    const { getByText } = renderPage();
 
     expect(getByText('Choose your preferred theme')).toBeTruthy();
 
-    const radioButtons = getAllByRole('radio');
-    expect(radioButtons.length).toBe(themesArray.length);
+    expect(getByText('Default')).toBeTruthy();
+    expect(getByText('Dark')).toBeTruthy();
+    expect(getByText('Light')).toBeTruthy();
   });
 
   it('should have the default theme selected on render', () => {
