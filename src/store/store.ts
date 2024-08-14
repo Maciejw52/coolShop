@@ -15,8 +15,6 @@ const persistConfig = {
   blacklist: ['basket, productsApi'],
 };
 
-console.log([productsApi.reducerPath]);
-
 export const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,
   accountData: accountDataReducer,
