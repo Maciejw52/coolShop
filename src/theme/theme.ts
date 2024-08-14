@@ -77,6 +77,7 @@ export const CombinedLightTheme = {
     onSurfaceDisabled: 'rgba(27, 27, 31, 0.38)',
     backdrop: 'rgba(47, 48, 56, 0.4)',
     white: 'rgb(255, 255, 255)',
+    themeBlue: 'rgb(2, 149, 216)',
   },
   ...customThemeProperties,
 };
@@ -128,6 +129,7 @@ export const CombinedDarkTheme = {
     onSurfaceDisabled: 'rgba(228, 225, 230, 0.38)',
     backdrop: 'rgba(47, 48, 56, 0.4)',
     white: 'rgb(255, 255, 255)',
+    themeBlue: 'rgb(2, 149, 216)',
   },
   ...customThemeProperties,
 };
