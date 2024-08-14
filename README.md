@@ -1,5 +1,9 @@
 # Cool Store README
 
+## Before Running the app
+
+Make sure you have followed the guide on [`Setting up the development environment`](https://reactnative.dev/docs/0.73/environment-setup).
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
