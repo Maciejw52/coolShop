@@ -25,10 +25,10 @@ export const AppSettingsScreen = () => {
       </Text>
       {themesArray.map(possibleTheme => (
         <View key={possibleTheme} style={styles.radioContainer}>
-          <Text variant="bodyLarge">
-            {possibleTheme.charAt(0).toUpperCase() + possibleTheme.slice(1)}
-          </Text>
-          <RadioButton
+          <RadioButton.Item
+            label={
+              possibleTheme.charAt(0).toUpperCase() + possibleTheme.slice(1)
+            }
             value={possibleTheme}
             testID={`${possibleTheme}-radio-button`}
             status={currentTheme === possibleTheme ? 'checked' : 'unchecked'}
@@ -50,9 +50,6 @@ const makeStyles = ({ spacing }: AppTheme) =>
       marginBottom: spacing.lg,
     },
     radioContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 10,
+      marginBottom: spacing.xs,
     },
   });
