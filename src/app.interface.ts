@@ -67,7 +67,7 @@ export interface Product {
   price: number;
   description: string;
   category: Category;
-  images: string[];
+  image: string;
 }
 
 export type Products = Product[];

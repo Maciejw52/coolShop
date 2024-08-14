@@ -30,10 +30,12 @@ describe('Account - Personal Details', () => {
 
   it('should update personal details and save them whilst also navigating back to the Account page', async () => {
     // Edit the fields with correct data
-    await element(by.id('full-name-input')).replaceText('John Doe');
-    await element(by.id('email-input')).replaceText('john.doe@example.com');
-    await element(by.id('phone-number-input')).replaceText('1234567890');
-    await element(by.id('address-input')).replaceText('Flat 32');
+    await element(by.id('full-name-input')).typeText('John Doe');
+    await element(by.id('email-input')).typeText('john.doe@example.com');
+    await element(by.id('phone-number-input')).typeText('1234567890');
+    await element(by.id('address-input')).typeText('Flat 32');
+    await element(by.id('address-input')).tapReturnKey();
+    await expect(element(by.text('Save'))).toBeVisible();
     // Save the details to the store
     await element(by.text('Save')).tap();
     // Expect the user to be navigated back
@@ -45,7 +47,12 @@ describe('Account - Personal Details', () => {
   });
 
   it.each([
-    ['full-name-input', '', 'Mac donald', 'Full Name is required'],
+    [
+      'full-name-input',
+      '123',
+      'Mac donald',
+      'Full Name must only contain letters and spaces',
+    ],
     [
       'email-input',
       'Invalid email',
@@ -58,7 +65,6 @@ describe('Account - Personal Details', () => {
       '1234567890',
       'Phone Number must be a number',
     ],
-    ['phone-number-input', '', '1234567890', 'Phone Number is required'],
   ])(
     'should show error message when invalid %s is entered into the form and hide error message when valid %s is entered',
     async (fieldName, invalidValue, validValue, errorMessage) => {

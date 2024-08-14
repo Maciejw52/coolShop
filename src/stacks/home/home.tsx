@@ -28,7 +28,7 @@ export const HomeScreen = () => {
   }, [refetch]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
         <Image
           accessibilityLabel="Cool Store Banner"
@@ -41,6 +41,7 @@ export const HomeScreen = () => {
         data={products}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ShopItem item={item} />}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         contentContainerStyle={styles.listContainer}
         refreshing={isFetching}
         onRefresh={handleRefresh}
@@ -56,6 +57,12 @@ const makeStyles = ({ colors, spacing }: AppTheme) =>
     },
     header: {
       backgroundColor: colors.elevation.level2,
+    },
+    separator: {
+      marginBottom: spacing.md,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.onBackground,
+      paddingBottom: spacing.sm,
     },
   });
 

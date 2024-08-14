@@ -1,7 +1,10 @@
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full Name is required'),
+  fullName: Yup.string()
+    .matches(/^[A-Za-z\s]+$/, 'Full Name must only contain letters and spaces')
+    .required('Full Name is required'),
+
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),

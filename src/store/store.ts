@@ -12,8 +12,10 @@ import { productsApi } from '@/api';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['basket'],
+  blacklist: ['basket, productsApi'],
 };
+
+console.log([productsApi.reducerPath]);
 
 export const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,

@@ -34,7 +34,7 @@ export const ShopItem = ({ item }: ShopItemProps) => {
   return (
     <>
       <View style={styles.itemContainer}>
-        <Image source={{ uri: item?.images[0] }} style={styles.image} />
+        <Image source={{ uri: item?.image }} style={styles.image} />
         <View style={styles.contentContainer}>
           <View style={styles.titleHeart}>
             <View style={styles.details}>
@@ -57,7 +57,7 @@ export const ShopItem = ({ item }: ShopItemProps) => {
               onPress={handleAddToBasket}
               textColor={theme.colors.themeBlue}
               contentStyle={styles.buyButtonStyles}
-              icon={'basket-plus'}>
+              icon="basket-plus">
               Buy Now
             </Button>
           </View>
@@ -67,14 +67,10 @@ export const ShopItem = ({ item }: ShopItemProps) => {
   );
 };
 
-const makeStyles = ({ colors, spacing, fontSize }: AppTheme) =>
+const makeStyles = ({ spacing, fontSize }: AppTheme) =>
   StyleSheet.create({
     itemContainer: {
       flexDirection: 'row',
-      marginBottom: spacing.md,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.onBackground,
-      paddingBottom: spacing.sm,
     },
     image: {
       width: 100,

@@ -109,9 +109,7 @@ export const PersonalDetailsScreen = () => {
                   value={values.address}
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
-                  multiline
                   enablesReturnKeyAutomatically
-                  numberOfLines={4}
                   testID="address-input"
                 />
                 <FormError name="address" />
@@ -133,7 +131,11 @@ export const PersonalDetailsScreen = () => {
                 }}>
                 Save
               </Button>
-              <Button mode="outlined" onPress={navigateBack}>
+              <Button
+                mode="outlined"
+                onPress={() => {
+                  navigateBack();
+                }}>
                 Discard
               </Button>
             </View>

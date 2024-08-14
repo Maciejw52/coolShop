@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Keyboard, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { AddCreditCard } from '@/components/add-credit-card';
 import { useAppSelector } from '@/hooks';
@@ -36,6 +36,7 @@ export const WalletScreen = () => {
     offsetY.value = withTiming(0, { duration: 300 });
     formOpacity.value = withTiming(0, { duration: 300 });
     formTranslateX.value = withTiming(200, { duration: 300 });
+    Keyboard.dismiss();
   };
 
   const animatedStyle = useAnimatedStyle(() => {
