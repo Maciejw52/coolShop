@@ -28,14 +28,6 @@ export const accountOptionsData: AccountOption[][] = [
         destination: 'AppSettings',
       },
     },
-    {
-      title: 'Privacy Policy',
-      icon: 'file-document-outline',
-      action: {
-        type: 'navigate',
-        destination: 'AppSettings',
-      },
-    },
   ],
   [
     {
